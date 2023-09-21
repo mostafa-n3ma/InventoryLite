@@ -16,10 +16,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-
     @Singleton
     @Provides
-    fun provideDatabase (@ApplicationContext context: Context):ShopDatabase{
+    fun provideDatabase(@ApplicationContext context: Context): ShopDatabase {
         return Room.databaseBuilder(
             context,
             ShopDatabase::class.java,
@@ -28,23 +27,18 @@ object DatabaseModule {
     }
 
 
-
     @Singleton
     @Provides
-    fun provideInventoryDao(database:ShopDatabase) : InventoryDao {
+    fun provideInventoryDao(database: ShopDatabase): InventoryDao {
         return database.inventoryDao()
     }
 
 
     @Singleton
     @Provides
-    fun provideTransactionDao(database: ShopDatabase) : TransactionDao {
+    fun provideTransactionDao(database: ShopDatabase): TransactionDao {
         return database.transactionDao()
     }
-
-
-
-
 
 
 }

@@ -1,0 +1,54 @@
+package com.mostafan3ma.android.barcode11.oporations.data_Mangment.repository
+
+import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Transaction
+import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.InventoryMapper
+import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.TransactionMapper
+import com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource.LocalDataSource
+import javax.inject.Inject
+
+class ShopRepository
+@Inject
+constructor(
+    private val localDataSource: LocalDataSource,
+    private val inventoryMapper: InventoryMapper,
+    private val transactionMapper: TransactionMapper
+) : DefaultShopRepository {
+
+    //Inventory
+    override suspend fun insert_Inventory(domainInventory: Domain_Inventory): Long {
+        return localDataSource.insert_Inventory(inventoryMapper.mapToEntity(domainInventory))
+    }
+
+    override suspend fun get_Inventories(): List<Domain_Inventory> {
+        return inventoryMapper.mapEntityList(localDataSource.get_Inventories())
+    }
+
+    override suspend fun delete_Inventory(domainInventory: Domain_Inventory): Int {
+        return localDataSource.delete_Inventory(inventoryMapper.mapToEntity(domainInventory))
+    }
+
+    override suspend fun update_Inventory(domainInventory: Domain_Inventory) {
+        return localDataSource.update_Inventory(inventoryMapper.mapToEntity(domainInventory))
+    }
+
+
+    //Transactions
+    override suspend fun insert_Transaction(domainTransaction: Domain_Transaction): Long {
+        return localDataSource.insert_Transaction(transactionMapper.mapToEntity(domainTransaction))
+    }
+
+    override suspend fun get_Transactions(): List<Domain_Transaction> {
+        return transactionMapper.mapEntityList(localDataSource.get_Transactions())
+    }
+
+    override suspend fun delete_Transaction(domainTransaction: Domain_Transaction): Int {
+        return localDataSource.delete_Transaction(transactionMapper.mapToEntity(domainTransaction))
+    }
+
+    override suspend fun update_Transaction(domainTransaction: Domain_Transaction) {
+        return localDataSource.update_Transaction(transactionMapper.mapToEntity(domainTransaction))
+    }
+
+
+}

@@ -1,30 +1,47 @@
 package com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.Cache_transaction
 import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.Cache_inventory
 
 @Dao
 interface InventoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertInventory(inventory: Cache_inventory)
+    suspend fun insertInventory(inventory: Cache_inventory):Long
 
     @Query("SELECT * FROM inventory")
-    suspend fun getAllInventory(): List<Cache_inventory>
+    suspend fun getAllInventories(): List<Cache_inventory>
 
+    @Delete
+    suspend fun deleteInventory(cacheInventory: Cache_inventory): Int
+
+
+    @Query("DELETE FROM inventory")
+    suspend fun clearInventories()
+
+
+    @Update
+    suspend fun updateInventory(cacheInventory: Cache_inventory)
     // Add other queries or operations for the Inventory class
 }
 
 @Dao
 interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTransaction(transaction: Cache_transaction)
+    suspend fun insertTransaction(transaction: Cache_transaction):Long
 
     @Query("SELECT * FROM transactions")
     suspend fun getAllTransactions(): List<Cache_transaction>
 
+    @Delete
+    suspend fun deleteTransaction(cacheTransaction: Cache_transaction):Int
+
+
+    @Query("DELETE FROM transactions")
+    suspend fun clearTransactions()
+
+
+    @Update
+    suspend fun updateTransaction(cacheTransaction: Cache_transaction)
     // Add other queries or operations for the Transaction class
 }
