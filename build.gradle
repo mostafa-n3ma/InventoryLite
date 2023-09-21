@@ -44,7 +44,7 @@ ext {
 
     // App dependencies
 
-    hilt_version = "2.43.2"
+    hilt_version = "2.44"
     hilt_view_models = "1.0.0-alpha03"
     fragment_ktx = "1.7.0-alpha04"
     liveData_ktx = "2.6.2"
