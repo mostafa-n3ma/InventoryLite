@@ -29,7 +29,7 @@ constructor(
         emit(DataState.Loading)
         try {
            val cacheInventories: List<Cache_inventory> = localDataSource.get_Inventories()
-            val domainInventories = inventoryMapper.mapEntityList(cacheInventories)
+            val domainInventories: List<Domain_Inventory> = inventoryMapper.mapEntityList(cacheInventories)
             emit(DataState.Success(domainInventories))
         }catch (e:Exception){
             emit(DataState.Error(e))

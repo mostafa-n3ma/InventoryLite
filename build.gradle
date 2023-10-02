@@ -52,5 +52,6 @@ ext {
     navigation_version = "2.7.2"
     fragmentTest_version = "1.3.0-alpha08"
     activityTest_version = "1.5.0"
+    barcode_version = "20.1.3"
 
 }

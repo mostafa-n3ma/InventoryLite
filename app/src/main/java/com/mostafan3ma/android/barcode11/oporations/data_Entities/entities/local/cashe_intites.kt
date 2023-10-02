@@ -13,7 +13,7 @@ data class Cache_inventory(
     val packaging_selling_price: Double,
     val item_purchase_price: Double,
     val item_selling_price: Double,
-    val barcode: Int,
+    val barcode: String,
     val category: String,
     val description: String,
     val packaging: Int,
@@ -28,7 +28,7 @@ data class Cache_inventory(
 @Entity(tableName = "transactions")
 data class Cache_transaction(
     @PrimaryKey(autoGenerate = true)
-    val transaction_id: Int,
+    val transaction_id: Int?,
     val product_id: Int,
     val product_name: String,
     val product_image: String,
@@ -36,7 +36,7 @@ data class Cache_transaction(
     val packaging_selling_price: Double,
     val item_purchase_price: Double,
     val item_selling_price: Double,
-    val barcode: Int,
+    val barcode: String,
     val category: String,
     val description: String,
     val packaging: Int,
@@ -46,5 +46,5 @@ data class Cache_transaction(
     val transaction_amount: Double,
     val transaction_type: String,
     val transaction_date: String,
-    val receipt_session: Int
+    val receipt_session: String
 )
