@@ -16,6 +16,7 @@ interface DefaultLocalDataSource {
     suspend fun get_Transactions() : List<Cache_transaction>
     suspend fun delete_Transaction(cacheTransaction: Cache_transaction) : Int
     suspend fun update_Transaction(cacheTransaction: Cache_transaction)
+    suspend fun clear_All_Transactions()
 
 
 

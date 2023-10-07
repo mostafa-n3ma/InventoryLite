@@ -2,8 +2,6 @@ package com.mostafan3ma.android.barcode11.presentation.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.media.AudioManager
-import android.media.ToneGenerator
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -35,15 +33,14 @@ import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Invento
 import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
 import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
 import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
-import com.mostafan3ma.android.barcode11.presentation.adapters.PurchaseAdapter
-import com.mostafan3ma.android.barcode11.presentation.adapters.PurchaseListener
-import com.mostafan3ma.android.barcode11.presentation.fragments.PurchaseFragment.Companion.PERMISSIONS
+import com.mostafan3ma.android.barcode11.presentation.adapters.Operation
+import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptAdapter
+import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Detector_status
 import com.mostafan3ma.android.barcode11.presentation.viewModels.PurchaseViewModel
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Search_type
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.nio.file.Files.find
 
 @AndroidEntryPoint
 class PurchaseFragment : Fragment() {
@@ -51,7 +48,7 @@ class PurchaseFragment : Fragment() {
 
     private lateinit var binding: FragmentPurchaseBinding
     private lateinit var addProductBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    private lateinit var productsAdapter: PurchaseAdapter
+    private lateinit var productsAdapter: ReceiptAdapter
 
 
     val viewModel: PurchaseViewModel by viewModels()
@@ -74,8 +71,12 @@ class PurchaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPurchaseBinding.inflate(layoutInflater)
-        productsAdapter = PurchaseAdapter(PurchaseListener {
-            Toast.makeText(requireContext(),"$it clicked ",Toast.LENGTH_SHORT).show()
+        productsAdapter = ReceiptAdapter(ReceiptListener {id: Int,position:Int,operation: Operation ->
+            Toast.makeText(
+                requireContext(),
+                "id:$id, position:$position, Operation:$operation",
+                Toast.LENGTH_SHORT
+            ).show()
         })
 
         binding.viewModel = viewModel
@@ -121,7 +122,8 @@ class PurchaseFragment : Fragment() {
         viewModel.namesSuggestions.observe(viewLifecycleOwner, Observer {
             if (it == null) {
 
-            } else {
+            }
+            else {
                 val suggestions: MutableList<String> = it
                 val adapter = ArrayAdapter(
                     requireContext(),

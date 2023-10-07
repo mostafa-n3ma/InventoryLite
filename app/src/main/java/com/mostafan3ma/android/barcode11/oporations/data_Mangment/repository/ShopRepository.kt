@@ -70,5 +70,9 @@ constructor(
         return localDataSource.update_Transaction(transactionMapper.mapToEntity(domainTransaction))
     }
 
+    override suspend fun clear_All_Transactions() {
+        return localDataSource.clear_All_Transactions()
+    }
+
 
 }

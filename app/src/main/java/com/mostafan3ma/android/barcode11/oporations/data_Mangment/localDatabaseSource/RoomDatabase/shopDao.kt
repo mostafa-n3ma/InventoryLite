@@ -22,7 +22,6 @@ interface InventoryDao {
 
     @Update
     suspend fun updateInventory(cacheInventory: Cache_inventory)
-    // Add other queries or operations for the Inventory class
 }
 
 @Dao
@@ -43,5 +42,5 @@ interface TransactionDao {
 
     @Update
     suspend fun updateTransaction(cacheTransaction: Cache_transaction)
-    // Add other queries or operations for the Transaction class
+
 }

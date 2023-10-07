@@ -9,7 +9,7 @@
                 type="com.mostafan3ma.android.barcode11.presentation.viewModels.PurchaseViewModel" />
         <variable
             name="adapter"
-            type="com.mostafan3ma.android.barcode11.presentation.adapters.PurchaseAdapter" />
+            type="com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -125,7 +125,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:setAdapter="@{adapter}"
                 android:layout_marginStart="14dp"
-                tools:listitem="@layout/list_item_purchase_screen"
+                tools:listitem="@layout/list_item_receipt_screen"
                 android:layout_marginEnd="14dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"

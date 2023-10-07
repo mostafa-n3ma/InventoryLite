@@ -98,26 +98,6 @@ constructor(private val repository: ShopRepository) : ViewModel() {
 
     init {
 
-        viewModelScope.launch {
-
-        }
-        viewModelScope.launch {
-            repository.get_Transactions().onEach { dataState ->
-                when (dataState){
-                    is DataState.Error -> {
-                        Log.d(TAG, "get_transactions: error:${dataState.exception.message}")
-                    }
-                    DataState.Loading -> {
-                        Log.d(TAG, "get_transactions: Loading >>>>")
-                    }
-                    is DataState.Success -> {
-                        Log.d(TAG, "get_transactions: Success transactions = ${dataState.data}")
-                    }
-                }
-            }.launchIn(viewModelScope)
-        }
-
-
 
 
         viewModelScope.launch {

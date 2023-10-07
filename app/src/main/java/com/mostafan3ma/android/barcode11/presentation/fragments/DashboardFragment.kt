@@ -42,7 +42,7 @@ class DashboardFragment : Fragment() {
 
         viewModel.clickSellReceiptCard.observe(viewLifecycleOwner, Observer { cicked->
             if (cicked){
-                Toast.makeText(requireContext(),"SellS Receipt Card clicked",Toast.LENGTH_SHORT).show()
+                findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToSellFragment())
             }
         })
 

@@ -26,5 +26,6 @@ interface DefaultShopRepository {
      suspend fun delete_Transaction(domainTransaction: Domain_Transaction): Int
 
      suspend fun update_Transaction(domainTransaction: Domain_Transaction)
+     suspend fun clear_All_Transactions()
 
 }
