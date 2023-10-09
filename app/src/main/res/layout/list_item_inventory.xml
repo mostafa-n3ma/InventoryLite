@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/item_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:id="@+id/white_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/material_motion_duration_long_1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            tools:text="Product Name"
+                            android:text="@{product.product_name}"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/price_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="price:"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/product_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/poppins_light"
+                                tools:text="9$"
+                                set_text="@{product.item_selling_price}"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/available_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="available:"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/poppins_light"
+                                tools:text="100 pc"
+                                set_text="@{product.available_quantity_amount}"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/category_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="Category:"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/poppins_light"
+                                tools:text="Drink"
+                                android:text="@{product.category}"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/details_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:text="more Details..."
+                                android:textColor="#5E79747E" />
+
+                            <ImageView
+                                android:id="@+id/down_arrow"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/card_resize" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="94dp"
+                        android:layout_height="94dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pepsi" />
+                </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/black_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                   >
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/black_img_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        app:cardCornerRadius="5dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/product_black_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/pepsi"
+
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/black_product_name"
+                        style="@style/white_text_labels_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        tools:text="Product Name"
+                        android:text="@{product.product_name}"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/black_img_card" />
+
+                    <TextView
+                        android:id="@+id/black_id_label"
+                        style="@style/white_text_labels_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:text="ID: "
+                        app:layout_constraintBaseline_toBaselineOf="@+id/black_product_name"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/black_product_id"
+                        style="@style/white_text_labels_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        tools:text="13"
+                        set_text="@{product.product_id}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/black_id_label"
+                        app:layout_constraintStart_toEndOf="@id/black_id_label" />
+
+
+                    <TextView
+                        android:id="@+id/black_description"
+                        style="@style/white_text_labels_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="@font/quicksand"
+                        tools:text="@string/demo_description"
+                        android:text="@{product.description}"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/black_product_name" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        app:layout_constraintTop_toBottomOf="@+id/black_description"
+                        android:layout_marginEnd="4dp">
+
+                        <TextView
+                            android:id="@+id/black_category_label"
+                            style="@style/white_text_labels_style_smale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Category: "
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            style="@style/white_text_labels_style_smale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            tools:text="Drink"
+                            android:text="@{product.category}"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/black_category_label"
+                            app:layout_constraintStart_toEndOf="@+id/black_category_label" />
+
+                        <TextView
+                            android:id="@+id/black_barcode_label"
+                            style="@style/white_text_labels_style_smale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:text="barcode:"
+                            app:layout_constraintEnd_toStartOf="@+id/black_product_barcode"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/black_product_barcode"
+                            style="@style/white_text_labels_style_smale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            tools:text="13999485"
+                            android:text="@{product.barcode}"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/black_barcode_label"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/pricing_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/black_category_label">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="item purchase price: "
+                                    android:textColor="@color/purchasing" />
+
+                                <TextView
+                                    android:id="@+id/item_purchase_price"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="1"
+                                    set_text="@{product.item_purchase_price}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="item selling price: "
+                                    android:textColor="@color/selling" />
+
+                                <TextView
+                                    android:id="@+id/item_selling_price"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="2"
+                                    set_text="@{product.item_selling_price}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="total items quantity: " />
+
+                                <TextView
+                                    android:id="@+id/total_items_quantity"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="32"
+                                    set_text="@{product.total_items_quantity}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="pc" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="packaging: " />
+
+                                <TextView
+                                    android:id="@+id/packaging"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="12"
+                                    set_text="@{product.packaging}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="/1" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="packaging purchase price: "
+                                    android:textColor="@color/purchasing" />
+
+                                <TextView
+                                    android:id="@+id/packaging_purchase_price"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="12"
+                                    set_text="@{product.packaging_purchase_price}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="packaging selling price: "
+                                    android:textColor="@color/selling" />
+
+                                <TextView
+                                    android:id="@+id/packaging_selling_price"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="24"
+                                    set_text="@{product.packaging_selling_price}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="total package quantity: " />
+
+                                <TextView
+                                    android:id="@+id/total_package_quantity"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="1"
+                                    set_text="@{product.total_package_quantity}" />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="available quantity amount: " />
+
+                                <TextView
+                                    android:id="@+id/available_quantity_amount"
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    tools:text="64"
+                                    set_text="@{product.available_quantity_amount}"
+                                    />
+
+                                <TextView
+                                    style="@style/white_text_labels_style_smale"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pricing_layout">
+
+                            <TextView
+                                style="@style/white_text_labels_style_smale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="purchasing date" />
+
+                            <TextView
+                                android:id="@+id/purchasing_date"
+                                style="@style/white_text_labels_style_smale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                tools:text="2023-9-4"
+                                android:text="@{product.purchasing_date}"
+                                android:textColor="@color/purchasing" />
+
+                            <TextView
+                                style="@style/white_text_labels_style_smale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="expiration date" />
+
+                            <TextView
+                                android:id="@+id/expiration_date"
+                                style="@style/white_text_labels_style_smale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                tools:text="2023-9-4"
+                                android:text="@{product.expiration_date}"
+                                android:textColor="@color/expiration" />
+
+                            <TextView
+                                style="@style/white_text_labels_style_smale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="production date" />
+
+                            <TextView
+                                android:id="@+id/production_date"
+                                style="@style/white_text_labels_style_smale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                tools:text="2023-9-4"
+                                android:text="@{product.production_date}"
+                                android:textColor="@color/production" />
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

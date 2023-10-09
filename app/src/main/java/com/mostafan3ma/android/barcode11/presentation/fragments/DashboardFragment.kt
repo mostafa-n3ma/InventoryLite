@@ -36,7 +36,7 @@ class DashboardFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.clickInventoryCard.observe(viewLifecycleOwner, Observer { inventoryClicked->
             if (inventoryClicked){
-                Toast.makeText(requireContext(),"inventory card clicked",Toast.LENGTH_SHORT).show()
+                findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToInventoriesFragment())
             }
         })
 
