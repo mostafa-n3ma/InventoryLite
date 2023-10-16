@@ -6,14 +6,19 @@
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/drawable/add_product_bottom_sheet_shape.xml" value="0.198" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/chip_category_item.xml" value="0.365625" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/fragment_analytics.xml" value="0.33" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/fragment_dashboard.xml" value="0.33" />
-        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/fragment_inventories.xml" value="0.365625" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/fragment_inventories.xml" value="0.25" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/fragment_purchase.xml" value="0.33" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/fragment_sell.xml" value="0.4237947122861586" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_analytics_expiry.xml" value="0.365625" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_analytics_quantities.xml" value="0.33" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_analytics_sales.xml" value="0.33" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_inventory.xml" value="0.5" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_purchase_screen.xml" value="0.5" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_receipt_screen.xml" value="0.25" />
-        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/test.xml" value="0.33" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/list_item_recipts.xml" value="0.33" />
+        <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/test.xml" value="0.5" />
         <entry key="..\:/code station/program office/android Kotlin/barcode project/barcode11/app/src/main/res/layout/test2.xml" value="0.25" />
       </map>
     </option>

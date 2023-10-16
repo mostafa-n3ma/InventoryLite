@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+            <variable
+                name="viewModel"
+                type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsViewModel" />
+        <variable
+            name="clickBackEvent"
+            type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsEvent.ClickBackBtnEvent" />
+
+        <variable
+            name="clickQuantitiesCardEvent"
+            type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsEvent.ClickQuantitiesCardEvent" />
+        <variable
+            name="clickSalesCardEvent"
+            type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsEvent.ClickSalesCardEvent" />
+
+        <variable
+            name="clickExpiryCardEvent"
+            type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsEvent.ClickExpiryCardEvent" />
+
+        <variable
+            name="clickSellReceiptsCardEvent"
+            type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsEvent.ClickSellReceiptsCardEvent" />
+
+        <variable
+            name="clickPurchaseReceiptsCardEvent"
+            type="com.mostafan3ma.android.barcode11.presentation.viewModels.AnalyticsEvent.ClickPurchaseReceiptsCardEvent" />
+
+
+
+
+
+        <variable
+            name="quantitiesAdapter"
+            type="com.mostafan3ma.android.barcode11.presentation.adapters.AnalyticsAdapter_Q" />
+        <variable
+            name="salesAdapter"
+            type="com.mostafan3ma.android.barcode11.presentation.adapters.AnalyticsAdapter_S" />
+
+        <variable
+            name="expiryAdapter"
+            type="com.mostafan3ma.android.barcode11.presentation.adapters.AnalyticsAdapter_E" />
+
+        <variable
+            name="sellReceiptsAdapter"
+            type="com.mostafan3ma.android.barcode11.presentation.adapters.Analytics_Adapter_R" />
+
+
+        <variable
+            name="purchaseReceiptsAdapter"
+            type="com.mostafan3ma.android.barcode11.presentation.adapters.Analytics_Adapter_R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/back"
+            android:onClick="@{()->viewModel.setEvent(clickBackEvent)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Analytics"
+            android:textColor="@color/dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/back_btn"
+            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="@+id/back_btn" />
+
+        <LinearLayout
+            android:id="@id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/back_btn">
+
+            <LinearLayout
+                android:id="@+id/total_cards_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/total_profit_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/gold"
+                    app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Total Profit"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_profit_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="18sp"
+                            tools:text="2993$" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/total_expenses_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/red_card"
+                    app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Total expenses"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_expenses_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="18sp"
+                            tools:text="2993$" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/quantities_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/white"
+                        android:elevation="10dp"
+                        android:onClick="@{()->viewModel.setEvent(clickQuantitiesCardEvent)}"
+                        app:cardCornerRadius="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="start"
+                                    android:text="Product Quantities"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/quantities_hidden_tag"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_weight="2"
+                                    android:backgroundTint="@color/red_card"
+                                    android:visibility="gone"
+                                    app:cardCornerRadius="5dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_light"
+                                            android:gravity="center"
+                                            android:text="Low Quantity" />
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/quantities_description_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:id="@+id/quantities_description"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_light"
+                                    android:text="Display products with details about their availability, arranged from the least in stock to help you identify which ones are close to running out."
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:id="@+id/quantities_down"
+                                    android:layout_width="18sp"
+                                    android:layout_height="18sp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="4dp"
+                                    android:src="@drawable/expend" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/quantities_Rec_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="500dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/quantities_rec"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginEnd="2dp"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    android:adapter="@{quantitiesAdapter}"
+                                    />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/products_sales_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/white"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="5dp"
+                        android:onClick="@{()->viewModel.setEvent(clickSalesCardEvent)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="start"
+                                    android:text="Products sales"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/products_sales_hidden_tag"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_weight="2"
+                                    android:backgroundTint="@color/gold"
+                                    android:visibility="gone"
+                                    app:cardCornerRadius="5dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_light"
+                                            android:gravity="center"
+                                            android:text="Excellent sales" />
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/products_sales_description_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:id="@+id/products_sales_description"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_light"
+                                    android:text="Display a list of products and their sales in ascending order, starting from the top-selling product, along with the sales figures for each product."
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:id="@+id/products_sales_down"
+                                    android:layout_width="18sp"
+                                    android:layout_height="18sp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="4dp"
+                                    android:src="@drawable/expend" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/products_sales_Rec_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="500dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/products_sales_rec"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    android:adapter="@{salesAdapter}"
+                                    android:layout_marginEnd="2dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/expiry_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/white"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="5dp"
+                        android:onClick="@{()->viewModel.setEvent(clickExpiryCardEvent)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="start"
+                                    android:text="Expiry date"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/expiry_hidden_tag"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_weight="2"
+                                    android:backgroundTint="@color/expiration"
+                                    android:visibility="gone"
+                                    app:cardCornerRadius="5dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_light"
+                                            android:gravity="center"
+                                            android:text="Near expiration" />
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/expiry_description_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:id="@+id/expiry_description"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_light"
+                                    android:text="Display products sorted by their expiration date, starting from the ones that are closest to their expiration date."
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:id="@+id/expiry_down"
+                                    android:layout_width="18sp"
+                                    android:layout_height="18sp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="4dp"
+                                    android:src="@drawable/expend" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/expiry_Rec_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="500dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/expiry_rec"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    android:adapter="@{expiryAdapter}"
+                                    android:layout_marginEnd="2dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/sell_receipt_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/white"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="5dp"
+                        android:onClick="@{()->viewModel.setEvent(clickSellReceiptsCardEvent)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="start"
+                                    android:text="Sell receipts"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/sell_receipt_description_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:id="@+id/sell_receipt_description"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_light"
+                                    android:text="A list of sales receipts, each with a summary of products and the total amount of the receipt sorted by their dates. "
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:id="@+id/sell_receipt_down"
+                                    android:layout_width="18sp"
+                                    android:layout_height="18sp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="4dp"
+                                    android:src="@drawable/expend" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/sell_receipt_Rec_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="500dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/sell_receipt_rec"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    android:adapter="@{sellReceiptsAdapter}"
+                                    android:layout_marginEnd="2dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/purchased_receipt_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/white"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="5dp"
+                        android:onClick="@{()->viewModel.setEvent(clickPurchaseReceiptsCardEvent)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="start"
+                                    android:text="Purchased receipts"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/purchased_receipt_description_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:id="@+id/purchased_receipt_description"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_light"
+                                    android:text="A list of Purchases receipts with a summary of the products and the total purchase amount, sorted by their dates."
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:id="@+id/purchased_receipt_down"
+                                    android:layout_width="18sp"
+                                    android:layout_height="18sp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="4dp"
+                                    android:src="@drawable/expend" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/purchased_receipt_Rec_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="500dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/purchased_receipt_rec"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    android:adapter="@{purchaseReceiptsAdapter}"
+                                    android:layout_marginEnd="2dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </ScrollView>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

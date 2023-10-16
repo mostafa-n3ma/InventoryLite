@@ -45,6 +45,10 @@ constructor(
         return localDataSource.update_Inventory(inventoryMapper.mapToEntity(domainInventory))
     }
 
+    override suspend fun clear_All_Inventories() {
+        return localDataSource.cleare_All_Inventories()
+    }
+
 
     //Transactions
     override suspend fun insert_Transaction(domainTransaction: Domain_Transaction): Long {

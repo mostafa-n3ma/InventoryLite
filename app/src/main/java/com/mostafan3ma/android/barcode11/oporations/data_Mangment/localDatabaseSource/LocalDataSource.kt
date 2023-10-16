@@ -23,8 +23,9 @@ constructor(private val inventoryDao: InventoryDao, private val transactionDao: 
         return inventoryDao.updateInventory(cacheInventory)
     }
 
-
-
+    override suspend fun cleare_All_Inventories() {
+        return inventoryDao.clearInventories()
+    }
 
 
     override suspend fun insert_Transaction(cacheTransaction: Cache_transaction): Long {

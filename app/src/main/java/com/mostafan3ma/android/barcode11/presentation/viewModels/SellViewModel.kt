@@ -289,8 +289,8 @@ constructor(private val repository: ShopRepository) : ViewModel() {
 
             val deferredResults = _receiptList.value!!.map { inventory ->
                 async {
-                    sellInventory(inventory)
-                    recordTransaction(inventory, currentDate, receipt_id)
+                    sellInventory(inventory.copy())
+                    recordTransaction(inventory.copy(), currentDate, receipt_id)
                 }
             }
 

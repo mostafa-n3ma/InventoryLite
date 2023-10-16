@@ -1,5 +1,7 @@
 package com.mostafan3ma.android.barcode11.presentation.viewModels
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +12,7 @@ import com.mostafan3ma.android.barcode11.oporations.data_Mangment.repository.Sho
 import com.mostafan3ma.android.barcode11.oporations.utils.DataState
 import com.mostafan3ma.android.barcode11.presentation.viewModels.FilterType.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -24,7 +27,31 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     }
 
 
+    private val _saveNewImg = MutableLiveData<String?>()
+    val saveNewImg:LiveData<String?>get() = _saveNewImg
 
+    private val _returnedBottomImgUri = MutableLiveData<Uri?>()
+    val returnedBottomImgUri:LiveData<Uri?>get() = _returnedBottomImgUri
+
+
+    private val _openImgChooser = MutableLiveData<Boolean>()
+    val openImgChooser:LiveData<Boolean>get() = _openImgChooser
+    fun openImgChooser(){
+        setEvent(InventoriesEvents.OpenImgChooser)
+    }
+
+
+
+    private val _clickable=MutableLiveData<Boolean>()
+    val clickable:LiveData<Boolean>get() = _clickable
+
+
+
+    private val _editBottomSheetOpened = MutableLiveData<Boolean>()
+    val editBottomSheetOpened:LiveData<Boolean> get() = _editBottomSheetOpened
+    fun directCloseBottomSheet(){
+        setEvent(InventoriesEvents.CloseEditBottomSheet)
+    }
 
 
 
@@ -61,7 +88,9 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     private val _barcodeBtnClicked = MutableLiveData<Boolean>()
     val barcodeBtnClicked: LiveData<Boolean> get() = _barcodeBtnClicked
     fun clickBarcodeBtn() {
-        setEvent(InventoriesEvents.ClickBarcodeBtn)
+        if (_clickable.value!!){
+            setEvent(InventoriesEvents.ClickBarcodeBtn)
+        }
     }
 
     private val _hideKeyBoardRequired = MutableLiveData<Boolean>()
@@ -72,7 +101,9 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     private val _backBtnClicked = MutableLiveData<Boolean>()
     val backBtnClicked: LiveData<Boolean> get() = _backBtnClicked
     fun goBack() {
-        setEvent(InventoriesEvents.ClickBackBtn)
+        if (_clickable.value ==true){
+            setEvent(InventoriesEvents.ClickBackBtn)
+        }
     }
 
 
@@ -80,17 +111,20 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     var inventories = listOf<Domain_Inventory>()
     val filteredList = MutableLiveData<MutableList<Domain_Inventory>>()
     var categoriesList = MutableLiveData<List<String>>()
-    val editableProduct = MutableLiveData<Domain_Inventory?>()
     val namesSuggestions = MutableLiveData<MutableList<String>?>()
 
 
 
     init {
-        editableProduct.value = null
         filteredList.value = mutableListOf()
         categoriesList.value = listOf()
         namesSuggestions.value = null
         _detectorOpened.value = true
+        _editBottomSheetOpened.value =false
+        _clickable.value=true
+        _openImgChooser.value =false
+        _returnedBottomImgUri.value =null
+        _saveNewImg.value =null
 
 
         bottom_P_id.value = ""
@@ -118,31 +152,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
 
 
 
-        viewModelScope.launch {
-            repository.get_Inventories().onEach {dataState: DataState<List<Domain_Inventory>> ->
-                when(dataState){
-                    is DataState.Error -> {
-                        Log.d(TAG, "init: error getting inventories")
-                    }
-                    DataState.Loading -> {
-                        Log.d(TAG, "init: loading inventories")
-                    }
-                    is DataState.Success -> {
-                        inventories = dataState.data
-                        Log.d(TAG, "init: inventories: ${dataState.data}")
-                        categoriesList.value = dataState.data.map { it.category }.distinct()
-                        Log.d(TAG, "init: categories: $categoriesList")
-                        inventories.map {
-                            filteredList.value!!.add(it)
-                        }
-                        filteredList.postValue(filteredList.value)
-                        Log.d(TAG, "init: filteredList:${filteredList.value}")
-                        namesSuggestions.value =
-                            inventories.map { it.product_name } as MutableList<String>
-                    }
-                }
-            }.launchIn(viewModelScope)
-        }
+        updateInventories()
     }
 
 
@@ -156,7 +166,6 @@ constructor(private val repository: ShopRepository) : ViewModel() {
                 _barcodeBtnClicked.value =true
                 _barcodeBtnClicked.value =false
             }
-            is InventoriesEvents.ExpendItemCard -> TODO()
             is InventoriesEvents.FilterInventories -> {
                 setFilter(events.input,events.filterType)
             }
@@ -164,17 +173,93 @@ constructor(private val repository: ShopRepository) : ViewModel() {
                 _hideKeyBoardRequired.value =true
                 _hideKeyBoardRequired.value =false
             }
-            is InventoriesEvents.OpenEditBottomSheet -> TODO()
+            is InventoriesEvents.OpenEditBottomSheet -> {
+                _editBottomSheetOpened.value = true
+                loadToBottomFields(getProductObject(events.product_id))
+                setEvent(InventoriesEvents.ClickableEnabled(false))
+            }
             is InventoriesEvents.SetBarcodeStatus -> {
                 when(events.detectorStatus){
                     Detector_status.Receive -> {_detectorOpened.value = true}
                     Detector_status.Pause -> {_detectorOpened.value = false}
                 }
             }
+            InventoriesEvents.CloseEditBottomSheet -> {
+                viewModelScope.launch{
+                    setEvent(InventoriesEvents.HideKeyBoard)
+                    delay(100)
+                    _editBottomSheetOpened.value = false
+                    setEvent(InventoriesEvents.ClickableEnabled(true))
+                    _returnedBottomImgUri.value =null
+                    _saveNewImg.value =null
+                }
+
+            }
+            is InventoriesEvents.ClickableEnabled -> {
+                when(events.status){
+                    true -> {
+                        _clickable.value = true
+                        emptyBottomFields()
+                    }
+                    false -> _clickable.value=false
+                }
+            }
+            InventoriesEvents.EditBtnClicked -> {
+                if (returnedBottomImgUri.value!=null){
+                    setEvent(InventoriesEvents.SaveNewImg(bottom_P_name.value!! + "_" + bottom_P_id.value))
+                    bottom_P_img.value = bottom_P_name.value!! + "_" + bottom_P_id.value
+                }
+                editProduct(calculateProductDataFromBottomFields())
+                updateInventories()
+                setEvent(InventoriesEvents.CloseEditBottomSheet)
+            }
+            InventoriesEvents.OpenImgChooser -> {
+                _openImgChooser.value =true
+                _openImgChooser.value =false
+            }
+            is InventoriesEvents.GetReturnedImgUri -> {
+                _returnedBottomImgUri.value = events.uri
+            }
+            is InventoriesEvents.SaveNewImg -> {
+                _saveNewImg.value = events.product_img
+            }
         }
     }
 
-   private fun  setFilter(input:String ,filterType:FilterType){
+
+    private fun updateInventories() {
+        viewModelScope.launch {
+
+            repository.get_Inventories().onEach {dataState: DataState<List<Domain_Inventory>> ->
+                when(dataState){
+                    is DataState.Error -> {
+                        Log.d(TAG, "init: error getting inventories")
+                    }
+                    DataState.Loading -> {
+                        Log.d(TAG, "init: loading inventories")
+                    }
+                    is DataState.Success -> {
+                        inventories = dataState.data
+                        Log.d(TAG, "init: inventories: ${dataState.data}")
+                        categoriesList.value = dataState.data.map { it.category }.distinct()
+                        Log.d(TAG, "init: categories: $categoriesList")
+                        val filtration = mutableListOf<Domain_Inventory>()
+                        inventories.map {
+                            filtration.add(it)
+                        }
+                        filteredList.value=filtration
+                        filteredList.postValue(filtration)
+                        Log.d(TAG, "init: filteredList:${filteredList.value}")
+                        namesSuggestions.value =
+                            inventories.map { it.product_name } as MutableList<String>
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+    }
+
+
+    private fun  setFilter(input:String ,filterType:FilterType){
         val inventoriesCopy = inventories.toList()
         when(filterType){
             CATEGORY -> {
@@ -197,14 +282,14 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     }
 
 
-    fun loadEditableProduct(id:Int){
-        editableProduct.value = getProductObject(id)
-    }
 
     private fun getProductObject(id: Int): Domain_Inventory {
         return inventories.find { it.product_id == id }!!.copy()
     }
 
+    fun clickEditBtn(){
+        setEvent(InventoriesEvents.EditBtnClicked)
+    }
     fun editProduct(product:Domain_Inventory){
         viewModelScope.launch {
             repository.update_Inventory(product)
@@ -274,7 +359,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         bottom_P_production_date_D.value = ""
     }
 
-    fun calculateProductInfoFromBottomFields():Domain_Inventory{
+    private fun calculateProductDataFromBottomFields():Domain_Inventory{
         return Domain_Inventory(
             product_id = bottom_P_id.value!!.toInt(),
             product_name =bottom_P_name.value!!,
@@ -308,10 +393,14 @@ sealed class InventoriesEvents {
     object HideKeyBoard : InventoriesEvents()
     data class FilterInventories(val input: String, val filterType: FilterType) :
         InventoriesEvents()
-
     data class SetBarcodeStatus(val detectorStatus: Detector_status) : InventoriesEvents()
-    data class OpenEditBottomSheet(val product_id: Int) : InventoriesEvents()
-    data class ExpendItemCard(val product_id: Int) : InventoriesEvents()
+    data class OpenEditBottomSheet(val product_id: Int, val position: Int) : InventoriesEvents()
+    object CloseEditBottomSheet : InventoriesEvents()
+    data class ClickableEnabled(val status:Boolean=true):InventoriesEvents()
+    object EditBtnClicked:InventoriesEvents()
+    object OpenImgChooser:InventoriesEvents()
+    data class GetReturnedImgUri(val uri:Uri?=null):InventoriesEvents()
+    data class SaveNewImg(val product_img:String):InventoriesEvents()
 }
 
 enum class FilterType { CATEGORY, NAME, BARCODE, NOTHING }

@@ -9,6 +9,7 @@ interface DefaultLocalDataSource {
     suspend fun get_Inventories() : List<Cache_inventory>
     suspend fun delete_Inventory(cacheInventory: Cache_inventory) : Int
     suspend fun update_Inventory(cacheInventory: Cache_inventory)
+    suspend fun cleare_All_Inventories()
 
 
     // transaction

@@ -11,6 +11,8 @@
     <color name="selling">#FFED78</color>
     <color name="expiration">#CF0B0B</color>
     <color name="production">#317810</color>
+    <color name="gold">#FFC52F</color>
+    <color name="red_card">#FF4444</color>
 
     //my colors
     <color name="dark">#100101</color>

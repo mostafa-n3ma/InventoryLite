@@ -20,7 +20,6 @@ class ReceiptAdapter(private val listener: ReceiptListener) :
     override fun onBindViewHolder(holder: ReceiptViewHolder, position: Int) {
         val productItem = getItem(position)
         holder.bind(productItem,listener,position)
-
     }
 }
 

@@ -3,15 +3,15 @@ package com.mostafan3ma.android.barcode11.presentation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.mostafan3ma.android.barcode11.oporations.data_Mangment.repository.ShopRepository
-import com.mostafan3ma.android.barcode11.presentation.fragments.DashboardFragment
-import com.mostafan3ma.android.barcode11.presentation.fragments.PurchaseFragment
-import com.mostafan3ma.android.barcode11.presentation.fragments.SellFragment
+import com.mostafan3ma.android.barcode11.oporations.utils.SuperImageController
+import com.mostafan3ma.android.barcode11.presentation.fragments.*
 import javax.inject.Inject
 
 class FragmentFactory
 @Inject
 constructor(
-    private val repository: ShopRepository
+    private val repository: ShopRepository,
+    private val supperImageController: SuperImageController
 )
     : FragmentFactory()
 {
@@ -26,6 +26,11 @@ constructor(
             SellFragment::class.java.name->{
                 SellFragment()
             }
+            InventoriesFragment::class.java.name->{
+                InventoriesFragment(supperImageController)
+            }
+            AnalyticsFragment::class.java.name->
+                AnalyticsFragment(supperImageController)
 
             else->{
                 super.instantiate(classLoader, className)

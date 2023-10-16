@@ -16,6 +16,8 @@ interface DefaultShopRepository {
 
      suspend fun update_Inventory(domainInventory: Domain_Inventory)
 
+     suspend fun clear_All_Inventories()
+
 
 
 

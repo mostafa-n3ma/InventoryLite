@@ -181,5 +181,500 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout android:id="@+id/add_product_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/add_product_bottom_sheet_shape"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:id="@+id/content_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="4dp"
+                        >
+                        <ImageView
+                            android:id="@+id/bottom_cancel_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()-> viewModel.directCloseBottomSheet()}"
+                            android:src="@drawable/cancel"/>
+
+                        <ImageView
+                            android:id="@+id/bottom_add_img_Btn"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            tools:src="@drawable/add_image"
+                            getInternalImg="@{viewModel.bottom_P_img}"
+                            android:onClick="@{()->viewModel.openImgChooser()}"
+                            android:layout_gravity="center"
+                            />
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            >
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                >
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_product_id_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Product Id"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_product_id_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="none"
+                                        android:clickable="false"
+                                        android:focusable="false"
+                                        android:text="@={viewModel.bottom_P_id}"
+                                        />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_product_name_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Product name"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_product_name_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_P_name}"
+                                        />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_barcode_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="barcode"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_barcode_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_P_barcode}"
+                                        />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_category_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Category"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_category_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_P_category}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_description_name_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Description"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_description_name_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="100dp"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_P_description}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_packaging_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="packaging"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_packaging_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:text="@={viewModel.bottom_P_packaging}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_packaging_purchase_price_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="package purchase price"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_packaging_purchase_price_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="numberDecimal"
+                                        android:text="@={viewModel.bottom_packaging_purchase_price}"
+                                        />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_packaging_selling_price_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="package selling price"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_packaging_selling_price_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_packaging_selling_price}"
+                                        />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_item_purchase_price_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="item purchase price"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_item_purchase_price_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_item_purchase_price}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_item_selling_price_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="item selling price"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_item_selling_price_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_item_selling_price}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_quantity_amount_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="quantity amount"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_quantity_amount_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:text="@={viewModel.bottom_available_quantity_amount}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_total_package_quantity_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="total package quantity"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_total_package_quantity_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="text"
+                                        android:text="@={viewModel.bottom_P_total_package_quantity}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_total_items_quantity_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="total items quantity"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_total_items_quantity_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:text="@={viewModel.bottom_P_total_items_quantity}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="4dp"
+                                    >
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Expiration Date"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:textColor="@color/light_brown"
+                                        />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            android:id="@+id/bottom_expiration_date_y_field"
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="year"
+                                            app:endIconMode="clear_text"
+                                            android:layout_weight="1"
+                                            app:boxStrokeColor="@color/dark"
+                                            app:hintTextColor="@color/dark">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/bottom_expiration_date_y_edit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:text="@={viewModel.bottom_P_expiration_date_Y}"
+                                                />
+                                        </com.google.android.material.textfield.TextInputLayout>
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            android:id="@+id/bottom_expiration_date_m_field"
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="month"
+                                            app:endIconMode="clear_text"
+                                            android:layout_weight="1"
+                                            app:boxStrokeColor="@color/dark"
+                                            app:hintTextColor="@color/dark">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/bottom_expiration_date_m_edit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:text="@={viewModel.bottom_P_expiration_date_M}"
+                                                />
+                                        </com.google.android.material.textfield.TextInputLayout>
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            android:id="@+id/bottom_expiration_date_d_field"
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="day"
+                                            app:endIconMode="clear_text"
+                                            android:layout_weight="1"
+                                            app:boxStrokeColor="@color/dark"
+                                            app:hintTextColor="@color/dark">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/bottom_expiration_date_d_edit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:text="@={viewModel.bottom_P_expiration_date_D}" />
+                                        </com.google.android.material.textfield.TextInputLayout>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="4dp"
+                                    >
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Production Date"
+                                        android:fontFamily="@font/poppins_medium"
+                                        android:textColor="@color/light_brown"
+                                        />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            android:id="@+id/bottom_production_date_y_field"
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="year"
+                                            app:endIconMode="clear_text"
+                                            android:layout_weight="1"
+                                            app:boxStrokeColor="@color/dark"
+                                            app:hintTextColor="@color/dark">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/bottom_production_date_y_edit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:text="@={viewModel.bottom_P_production_date_Y}" />
+                                        </com.google.android.material.textfield.TextInputLayout>
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            android:id="@+id/bottom_production_date_m_field"
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="month"
+                                            app:endIconMode="clear_text"
+                                            android:layout_weight="1"
+                                            app:boxStrokeColor="@color/dark"
+                                            app:hintTextColor="@color/dark">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/bottom_production_date_m_edit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:text="@={viewModel.bottom_P_production_date_M}" />
+                                        </com.google.android.material.textfield.TextInputLayout>
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            android:id="@+id/bottom_production_date_d_field"
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="day"
+                                            app:endIconMode="clear_text"
+                                            android:layout_weight="1"
+                                            app:boxStrokeColor="@color/dark"
+                                            app:hintTextColor="@color/dark">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/bottom_production_date_d_edit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:text="@={viewModel.bottom_P_production_date_D}" />
+                                        </com.google.android.material.textfield.TextInputLayout>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+                        </ScrollView>
+
+
+
+
+
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/button_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <Button
+                            android:id="@+id/bottom_add_product_btn"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:backgroundTint="@color/light_brown"
+                            android:textColor="@color/dark"
+                            android:textAllCaps="false"
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->viewModel.clickEditBtn()}"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Product"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

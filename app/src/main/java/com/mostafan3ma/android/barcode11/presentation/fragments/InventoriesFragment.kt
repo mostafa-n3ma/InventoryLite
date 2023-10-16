@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -14,24 +15,27 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.util.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentInventoriesBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.oporations.utils.SuperImageController
+import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
 import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
 import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
 import com.mostafan3ma.android.barcode11.presentation.adapters.InventoriesAdapter
@@ -39,13 +43,19 @@ import com.mostafan3ma.android.barcode11.presentation.adapters.InventoriesListen
 import com.mostafan3ma.android.barcode11.presentation.viewModels.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class InventoriesFragment :Fragment() {
+class InventoriesFragment
+@Inject
+    constructor(private val superImageController: SuperImageController)
+    :Fragment() {
 
     lateinit var binding: FragmentInventoriesBinding
     private lateinit var inventoriesAdapter :InventoriesAdapter
-     val viewModel:InventoriesViewModel by viewModels()
+    private lateinit var editProductBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    val viewModel:InventoriesViewModel by viewModels()
+    var clickableEnabled:Boolean = true
     companion object{
         const val TAG = "InventoriesFragment"
         private val PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
@@ -57,6 +67,16 @@ class InventoriesFragment :Fragment() {
     private lateinit var detector: BarcodeDetector
 
 
+    @RequiresApi(Build.VERSION_CODES.P)
+    override fun onResume() {
+        super.onResume()
+        if (superImageController.returnedUri!=null){
+            viewModel.setEvent(InventoriesEvents.GetReturnedImgUri(superImageController.returnedUri))
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,16 +86,43 @@ class InventoriesFragment :Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
         inventoriesAdapter = InventoriesAdapter(InventoriesListener{id: Int, position: Int ->
-            Toast.makeText(requireContext(),"$id in $position clicked",Toast.LENGTH_SHORT).show()
+            //click listener
+            when(clickableEnabled){
+                true -> Toast.makeText(requireContext(),"$id in $position clicked",Toast.LENGTH_SHORT).show()
+                false -> Toast.makeText(requireContext(),"$id in $position clicked disabled",Toast.LENGTH_SHORT).show()
+            }
+
+        },InventoriesListener{id: Int, position: Int ->
+            // long click listener
+            when(clickableEnabled){
+                true -> {
+                    Toast.makeText(requireContext(),"long clicked item :$id , on position : $position",Toast.LENGTH_SHORT).show()
+                    viewModel.setEvent(InventoriesEvents.OpenEditBottomSheet(id,position))
+                }
+                false -> Toast.makeText(requireContext(),"$id in $position clicked disabled",Toast.LENGTH_SHORT).show()
+            }
+
         })
         binding.adapter = inventoriesAdapter
 
+
+        editProductBottomSheetBehavior = setUpBottomSheet()
+        superImageController.register(this)
 
 
         permissionsRequest = getPermissionsRequest()
         subscribeObservers()
         return binding.root
     }
+
+
+    private fun setUpBottomSheet(): BottomSheetBehavior<LinearLayout> {
+        return BottomSheetBehavior.from(binding.addProductBottomSheet).apply {
+            isDraggable = false
+        }
+    }
+
+
 
     private fun getPermissionsRequest() =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
@@ -224,14 +271,17 @@ class InventoriesFragment :Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun subscribeObservers() {
         viewModel.categoriesList.observe(viewLifecycleOwner, Observer { categories->
             setUpCategoriesChips(categories)
+            Log.d(TAG, "subscribeObservers: categoriesList:$categories")
         })
         viewModel.filteredList.observe(viewLifecycleOwner, Observer { filteredList->
-            Log.d(TAG, "subscribeObservers: filteredList:$filteredList")
+//            Log.d(TAG, "subscribeObservers: filteredList:$filteredList")
             if (filteredList !=null){
                 inventoriesAdapter.submitList(filteredList)
+                Log.d(TAG, "subscribeObservers: filteredList:${filteredList.size}")
             }
         })
         viewModel.namesSuggestions.observe(viewLifecycleOwner, Observer {suggestions->
@@ -245,24 +295,58 @@ class InventoriesFragment :Fragment() {
                 binding.searchProductsEdit.setOnItemClickListener { _, _, position, _ ->
                     val selectedText = adapter.getItem(position).toString()
                     viewModel.setEvent(InventoriesEvents.FilterInventories(selectedText,FilterType.NAME))
+                    viewModel.setEvent(InventoriesEvents.HideKeyBoard)
                 }
 
             }
         })
-
-
         viewModel.barcodeBtnClicked.observe(viewLifecycleOwner, Observer { clicked->
             if (clicked){
                 requestPermissions(permissionsRequest, PERMISSIONS)
             }
         })
-
         viewModel.backBtnClicked.observe(viewLifecycleOwner, Observer { clicked->
             if (clicked){
                 findNavController().navigate(InventoriesFragmentDirections.actionInventoriesFragmentToDashboardFragment())
             }
         })
+        viewModel.editBottomSheetOpened.observe(viewLifecycleOwner, Observer { opened->
+            if (opened){
+                editProductBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                Log.d(TAG, "subscribeObservers: editbottomSheet opened : true")
+            }else{
+                editProductBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                Log.d(TAG, "subscribeObservers: editbottomSheet opened : false")
+            }
+        })
+        viewModel.clickable.observe(viewLifecycleOwner,Observer{status->
+            clickableEnabled = status
+        })
+        viewModel.hideKeyBoardRequired.observe(viewLifecycleOwner,Observer{ hideKeyBoardRequired ->
+            if (hideKeyBoardRequired) {
+                hideKeyboard()
+            }
 
+        })
+        viewModel.openImgChooser.observe(viewLifecycleOwner, Observer { openRequired->
+            if (openRequired){
+                superImageController.launchRegistrar()
+            }
+
+        })
+        viewModel.returnedBottomImgUri.observe(viewLifecycleOwner,Observer{ imgUri->
+            binding.bottomAddImgBtn.setImageURI(imgUri)
+        })
+
+        viewModel.saveNewImg.observe(viewLifecycleOwner, Observer { product_img->
+            if (product_img !=null){
+                val imgBitmap = superImageController.getBitmapFromRegister(requireContext())
+                lifecycleScope.launch {
+                    superImageController.saveImageToInternalStorage(requireContext(),imgBitmap,product_img)
+                }
+
+            }
+        })
     }
 
 }

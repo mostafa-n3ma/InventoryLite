@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_inventoriesFragment"
             app:destination="@id/inventoriesFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/purchaseFragment"
@@ -40,6 +43,14 @@
         android:label="InventoriesFragment" >
         <action
             android:id="@+id/action_inventoriesFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.mostafan3ma.android.barcode11.presentation.fragments.AnalyticsFragment"
+        android:label="AnalyticsFragment" >
+        <action
+            android:id="@+id/action_analyticsFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
 </navigation>

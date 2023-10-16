@@ -49,7 +49,7 @@ class DashboardFragment : Fragment() {
 
         viewModel.clickAnalyticsCard.observe(viewLifecycleOwner, Observer { clicked->
             if (clicked){
-                Toast.makeText(requireContext(),"Analytics Card clicked",Toast.LENGTH_SHORT).show()
+                findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAnalyticsFragment())
             }
         })
 
