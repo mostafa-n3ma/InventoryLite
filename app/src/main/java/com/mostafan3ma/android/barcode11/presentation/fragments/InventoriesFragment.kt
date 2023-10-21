@@ -34,10 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentInventoriesBinding
-import com.mostafan3ma.android.barcode11.oporations.utils.SuperImageController
-import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
-import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
-import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
+import com.mostafan3ma.android.barcode11.oporations.utils.*
 import com.mostafan3ma.android.barcode11.presentation.adapters.InventoriesAdapter
 import com.mostafan3ma.android.barcode11.presentation.adapters.InventoriesListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.*
@@ -54,7 +51,11 @@ class InventoriesFragment
     lateinit var binding: FragmentInventoriesBinding
     private lateinit var inventoriesAdapter :InventoriesAdapter
     private lateinit var editProductBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private lateinit var peepPlayer: BeepPlayer
     val viewModel:InventoriesViewModel by viewModels()
+
+
+
     var clickableEnabled:Boolean = true
     companion object{
         const val TAG = "InventoriesFragment"
@@ -105,6 +106,7 @@ class InventoriesFragment
         })
         binding.adapter = inventoriesAdapter
 
+        peepPlayer = BeepPlayer(requireContext())
 
         editProductBottomSheetBehavior = setUpBottomSheet()
         superImageController.register(this)
@@ -122,6 +124,10 @@ class InventoriesFragment
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        peepPlayer.release()
+    }
 
 
     private fun getPermissionsRequest() =
@@ -202,6 +208,7 @@ class InventoriesFragment
                         if (viewModel.isBarcodeAvailable(code.displayValue)){
                             lifecycleScope.launch {
                                 viewModel.setEvent(InventoriesEvents.FilterInventories(code.displayValue,FilterType.BARCODE))
+                                viewModel.setEvent(InventoriesEvents.PlayBeep)
                                 viewModel.setEvent(InventoriesEvents.SetBarcodeStatus(Detector_status.Pause))
                                 checkBarcodeScannerCard()
                             }
@@ -337,7 +344,6 @@ class InventoriesFragment
         viewModel.returnedBottomImgUri.observe(viewLifecycleOwner,Observer{ imgUri->
             binding.bottomAddImgBtn.setImageURI(imgUri)
         })
-
         viewModel.saveNewImg.observe(viewLifecycleOwner, Observer { product_img->
             if (product_img !=null){
                 val imgBitmap = superImageController.getBitmapFromRegister(requireContext())
@@ -345,6 +351,11 @@ class InventoriesFragment
                     superImageController.saveImageToInternalStorage(requireContext(),imgBitmap,product_img)
                 }
 
+            }
+        })
+        viewModel.beep.observe(viewLifecycleOwner, Observer { beep->
+            if (beep){
+                peepPlayer.play()
             }
         })
     }

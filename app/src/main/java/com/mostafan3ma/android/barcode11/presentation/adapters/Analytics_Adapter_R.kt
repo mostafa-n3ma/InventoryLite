@@ -1,7 +1,6 @@
 package com.mostafan3ma.android.barcode11.presentation.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.databinding.ListItemReciptsBinding
 import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Transaction
-import com.mostafan3ma.android.barcode11.oporations.utils.getValueInDP
 import java.lang.StringBuilder
 
 class Analytics_Adapter_R : ListAdapter<ReceiptItem,ReceiptsViewHolder>(ReceiptItemsViewHolder()){

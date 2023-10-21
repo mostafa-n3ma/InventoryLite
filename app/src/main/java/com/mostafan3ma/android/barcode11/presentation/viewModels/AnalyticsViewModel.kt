@@ -26,6 +26,10 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         const val TAG = "AnalyticsViewModel"
     }
 
+
+    val totalExpenses = MutableLiveData<Double>()
+    val totalProfit=MutableLiveData<Double>()
+
     private val _backBtnClicked = MutableLiveData<Boolean>()
     val backBtnClicked: LiveData<Boolean> get() = _backBtnClicked
 
@@ -74,6 +78,8 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         _expiryCardClicked.value = false
         _sellReceiptsCardClicked.value = false
         _purchasedReceiptsCardClicked.value = false
+        totalExpenses.value =0.0
+        totalProfit.value=0.0
 
 
 
@@ -122,6 +128,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
                         transactions = dataState.data
                         Log.d(TAG, "fetchData: transactions : $transactions")
                         getSalesList(transactions)
+                        updateTotals(transactions)
                         _sellReceiptsList.value = getReceiptsLists(transactions,TRANSACTION_TYPE.SELL)
                         _purchaseReceiptsList.value = getReceiptsLists(transactions,TRANSACTION_TYPE.PURCHASE)
                     }
@@ -129,6 +136,28 @@ constructor(private val repository: ShopRepository) : ViewModel() {
             }.launchIn(viewModelScope)
         }
 
+    }
+
+
+    private fun updateTotals(transactions: List<Domain_Transaction>) {
+        var tempTotalExpenses = 0.0
+        var tempTotalProfit = 0.0
+        transactions.map { transaction->
+            when(transaction.transaction_type){
+                "PURCHASE"->{
+                    tempTotalExpenses+=transaction.transaction_amount
+                }
+                "SELL"->{
+                    val itemPurchasePrice = transaction.item_purchase_price
+                    var itemSellingPrice = transaction.item_selling_price
+                    val itemProfit = (itemSellingPrice - itemPurchasePrice) * transaction.transaction_quentity
+                    tempTotalProfit+=itemProfit
+                }
+            }
+        }
+        totalExpenses.value = tempTotalExpenses
+
+        totalProfit.value = tempTotalProfit
     }
 
     private fun getReceiptsLists(transactions: List<Domain_Transaction>,transactionType:TRANSACTION_TYPE):MutableList<ReceiptItem> {
@@ -145,7 +174,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         }
 
         // get the distinct receipts id’s in a list<String>
-        val distinctReceiptsIds: List<String> = filteredTransactions.map{it.receipt_session}.distinct()
+        val distinctReceiptsIds: List<String> = filteredTransactions.map{it.receipt_session }.distinct()
         // map through the string list of id’s and create ReceiptItem object and fill it’s properties from the sellReceipts list
         //and add it to a final receiptsItems
         val finalReceiptsItems = mutableListOf<ReceiptItem>()
@@ -164,10 +193,6 @@ constructor(private val repository: ShopRepository) : ViewModel() {
 
     }
 
-
-
-
-
     private fun getExpiryList(inventories: List<Domain_Inventory>) {
         val customComparator = Comparator { domain1: Domain_Inventory, domain2: Domain_Inventory ->
             val date1 = domain1.expiration_date
@@ -180,8 +205,6 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         _expiryList.value = sortedList
 
     }
-
-
 
     private fun getSalesList(transactions: List<Domain_Transaction>) {
         val filteredList = mutableListOf<Domain_Transaction>()
@@ -201,9 +224,6 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         _salesList.value = filteredList.sortedByDescending { it.transaction_amount }
         Log.d(TAG, "getSalesList: $filteredList")
     }
-
-
-
 
     private fun getQuantitiesList(inventories: List<Domain_Inventory>) {
         val sortedList = inventories.sortedBy { it.total_items_quantity }

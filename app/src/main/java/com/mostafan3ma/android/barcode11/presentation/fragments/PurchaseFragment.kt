@@ -30,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentPurchaseBinding
 import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.oporations.utils.BeepPlayer
 import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
 import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
 import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
@@ -39,6 +40,7 @@ import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Detector_status
 import com.mostafan3ma.android.barcode11.presentation.viewModels.PurchaseViewModel
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Search_type
+import com.mostafan3ma.android.barcode11.presentation.viewModels.SellViewModelEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -49,6 +51,8 @@ class PurchaseFragment : Fragment() {
     private lateinit var binding: FragmentPurchaseBinding
     private lateinit var addProductBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var productsAdapter: ReceiptAdapter
+    private lateinit var peepPlayer: BeepPlayer
+
 
 
     val viewModel: PurchaseViewModel by viewModels()
@@ -77,6 +81,7 @@ class PurchaseFragment : Fragment() {
                 "id:$id, position:$position, Operation:$operation",
                 Toast.LENGTH_SHORT
             ).show()
+            viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.UpdateItem(id, position, operation))
         })
 
         binding.viewModel = viewModel
@@ -84,12 +89,19 @@ class PurchaseFragment : Fragment() {
         binding.adapter = productsAdapter
         addProductBottomSheetBehavior = setUpBottomSheet()
 
+        peepPlayer = BeepPlayer(requireContext())
+
         subscribeObservers()
         permissionsRequest = getPermissionsRequest()
 
 
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        peepPlayer.release()
     }
 
 
@@ -195,6 +207,29 @@ class PurchaseFragment : Fragment() {
                 viewModel.done()
             }
         })
+
+        viewModel.notifyPosition.observe(viewLifecycleOwner, Observer {position->
+            if (position!=null){
+                productsAdapter.notifyItemChanged(position)
+            }
+        })
+
+
+        viewModel.beep.observe(viewLifecycleOwner, Observer { beep->
+            if (beep){
+                peepPlayer.play()
+            }
+        })
+
+
+        viewModel.bottom_P_total_items_quantity.observe(viewLifecycleOwner,Observer{totalItemsQuantity->
+            if (totalItemsQuantity.isNotEmpty() && !viewModel.bottom_item_purchase_price.value.isNullOrEmpty()){
+                val quantity = totalItemsQuantity.toDouble()
+                val purchasePrice = viewModel.bottom_item_purchase_price.value!!.toDouble()
+                viewModel.bottom_purchasing_amount.postValue((quantity*purchasePrice).toString())
+            }
+        })
+
     }
 
 
@@ -280,7 +315,7 @@ class PurchaseFragment : Fragment() {
                                     "receiveDetections: barcode detected and available :${code.displayValue}"
                                 )
                                 lifecycleScope.launch {
-
+                                    viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.PlayBeep)
                                     viewModel.setEvent(
                                         PurchaseViewModel
                                             .PurchaseViewModelEvent
@@ -289,7 +324,6 @@ class PurchaseFragment : Fragment() {
                                     val detectedProduct: Domain_Inventory? = viewModel.getProductObject(Search_type.Barcode,code.displayValue)
                                     if (detectedProduct != null){
                                         detectedProduct.total_items_quantity = 0
-                                        detectedProduct.total_package_quantity = 0
                                         viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.OpenBottomSheetEvent(detectedProduct))
                                     }
 
@@ -311,6 +345,7 @@ class PurchaseFragment : Fragment() {
                                         Log.d(TAG, "receiveDetections: product is in localProductList")
                                         val localProduct: Domain_Inventory? = viewModel.localProductsList.value!!.find { it.barcode == code.displayValue }
                                         lifecycleScope.launch {
+                                            viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.PlayBeep)
                                             viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.OpenBottomSheetEvent(localProduct!!))
                                             viewModel.setEvent(
                                                 PurchaseViewModel
@@ -332,9 +367,12 @@ class PurchaseFragment : Fragment() {
                                         )
 
                                         lifecycleScope.launch {
+                                            viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.PlayBeep)
                                             // the lifecycleScope because it cannot invoke set value method like set event or setting values to the liveData properties of the view model from background thread
                                             viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.Toast_Announcement("Product is not registered creating new product"))
-                                            viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.OpenBottomSheetEvent(Domain_Inventory(barcode = code.displayValue)))
+                                            viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.OpenBottomSheetEvent(Domain_Inventory(
+                                                barcode = code.displayValue
+                                            )))
                                             viewModel.setEvent(
                                                 PurchaseViewModel
                                                     .PurchaseViewModelEvent

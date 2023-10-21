@@ -29,6 +29,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentSellBinding
 import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.oporations.utils.BeepPlayer
 import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
 import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
 import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
@@ -37,9 +38,6 @@ import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptAdapter
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.*
 import kotlinx.coroutines.launch
-import okhttp3.internal.notifyAll
-import okhttp3.internal.toImmutableList
-import kotlin.math.log
 
 
 @AndroidEntryPoint
@@ -48,6 +46,7 @@ class SellFragment : Fragment() {
     val viewModel: SellViewModel by viewModels()
     private lateinit var binding: FragmentSellBinding
     private lateinit var productsAdapter: ReceiptAdapter
+    private lateinit var peepPlayer: BeepPlayer
 
 
 
@@ -80,11 +79,20 @@ class SellFragment : Fragment() {
         binding.adapter = productsAdapter
         permissionsRequest = getPermissionsRequest()
 
+        peepPlayer = BeepPlayer(requireContext())
+
         subscribeObservers()
 
 
         return binding.root
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        peepPlayer.release()
+    }
+
 
     private fun subscribeObservers() {
         viewModel.barcodeBtnClicked.observe(viewLifecycleOwner, Observer { clicked->
@@ -129,6 +137,12 @@ class SellFragment : Fragment() {
                 productsAdapter.notifyItemChanged(position)
             }
         })
+        viewModel.beep.observe(viewLifecycleOwner, Observer { beep->
+            if (beep){
+                peepPlayer.play()
+            }
+        })
+
     }
 
     private fun getPermissionsRequest() =
@@ -200,13 +214,25 @@ class SellFragment : Fragment() {
 
             }
 
+            var lastCode:String? = null
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 if (detections.detectedItems.isNotEmpty()) {
+                    Log.d(TAG, "receiveDetections: lastCode init{} = $lastCode")
                     val qrCodes: SparseArray<Barcode> = detections.detectedItems
                     val code = qrCodes.valueAt(0)
+                    Log.d(TAG, "receiveDetections: receiving ${code.displayValue}")
+
+                    if (lastCode !=null){
+                        Log.d(TAG, "receiveDetections: lastCode != null = $lastCode  return")
+                        return
+                    }
+                    Log.d(TAG, "receiveDetections: lastCode is null continue = $lastCode")
+
+                    lastCode = code.displayValue
                     when(viewModel.detectorOpened.value){
                         true -> {
                             lifecycleScope.launch {
+                                viewModel.setEvent(SellViewModelEvent.PlayBeep)
                                 viewModel.setEvent(SellViewModelEvent.UpdateReceiptList(code.displayValue,InputType.BARCODE))
                                 val list: MutableList<Domain_Inventory> = productsAdapter.currentList
                                 val index = list.indexOf(list.find { it.barcode ==  code.displayValue})
@@ -226,7 +252,10 @@ class SellFragment : Fragment() {
 
 
                 } else {
-                    Log.d(TAG, "receiveDetections: detection nothing")
+                    lastCode = null
+                    Log.d(TAG, "receiveDetections: receiving nothing")
+                    Log.d(TAG, "receiveDetections: lastCode = null = $lastCode")
+
                 }
             }
         }

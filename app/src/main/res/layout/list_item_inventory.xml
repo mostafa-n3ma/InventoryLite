@@ -34,9 +34,7 @@
                 android:orientation="vertical"
                 >
 
-                <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/white_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -377,118 +375,7 @@
                                     android:text="pc" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
 
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="packaging: " />
-
-                                <TextView
-                                    android:id="@+id/packaging"
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    tools:text="12"
-                                    set_text="@{product.packaging}"
-                                    />
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="/1" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="packaging purchase price: "
-                                    android:textColor="@color/purchasing" />
-
-                                <TextView
-                                    android:id="@+id/packaging_purchase_price"
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    tools:text="12"
-                                    set_text="@{product.packaging_purchase_price}"
-                                    />
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="packaging selling price: "
-                                    android:textColor="@color/selling" />
-
-                                <TextView
-                                    android:id="@+id/packaging_selling_price"
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    tools:text="24"
-                                    set_text="@{product.packaging_selling_price}"
-                                    />
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="total package quantity: " />
-
-                                <TextView
-                                    android:id="@+id/total_package_quantity"
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    tools:text="1"
-                                    set_text="@{product.total_package_quantity}" />
-
-                                <TextView
-                                    style="@style/white_text_labels_style_smale"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$" />
-                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"

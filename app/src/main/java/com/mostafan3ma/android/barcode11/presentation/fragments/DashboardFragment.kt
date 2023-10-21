@@ -67,7 +67,7 @@ class DashboardFragment : Fragment() {
 
         viewModel.clickRunOffProductsCard.observe(viewLifecycleOwner, Observer { clicked->
             if (clicked){
-                Toast.makeText(requireContext()," Run Off Products Card  clicked",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"for more details go to Analytics/products quantities ",Toast.LENGTH_SHORT).show()
             }
         })
 

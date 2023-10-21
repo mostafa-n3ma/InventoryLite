@@ -258,7 +258,8 @@ reports "
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="384$"
+                            tools:text="384$"
+                            set_text="@{viewModel._todaySales}"
                             android:textColor="@color/dark" />
 
                     </LinearLayout>
@@ -268,6 +269,7 @@ reports "
                 <androidx.cardview.widget.CardView
                     android:id="@+id/sold_out_card"
                     android:layout_width="170dp"
+                    android:onClick="@{()->viewModel.clickRunOffProductsCard()}"
                     android:layout_height="150dp"
                     android:layout_margin="4dp"
                     android:backgroundTint="@color/white"
@@ -293,7 +295,8 @@ reports "
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="product 1"
+                            tools:text="product 1"
+                            android:text="@{viewModel.soldOutProduct}"
                             android:textColor="@color/dark" />
 
                     </LinearLayout>

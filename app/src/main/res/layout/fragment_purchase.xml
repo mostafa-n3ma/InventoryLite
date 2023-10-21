@@ -117,6 +117,51 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/receipt_total_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/main_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Receipt Total : "
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="18sp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:id="@+id/receipt_total_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="233$"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:maxLength="6"
+                        set_text="@{viewModel.receipt_total}"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/products_rec"
                 android:layout_width="match_parent"
@@ -129,7 +174,7 @@
                 android:layout_marginEnd="14dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_card" />
+                app:layout_constraintTop_toBottomOf="@+id/receipt_total_card" />
 
             <Button
                 android:id="@+id/done_btn"
@@ -256,7 +301,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:imeOptions="actionNext"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:text="@={viewModel.bottom_P_barcode}"
                                         />
                                 </com.google.android.material.textfield.TextInputLayout>
@@ -297,62 +342,6 @@
                                         android:text="@={viewModel.bottom_P_description}" />
                                 </com.google.android.material.textfield.TextInputLayout>
                                 <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/bottom_packaging_field"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="packaging"
-                                    app:endIconMode="clear_text"
-                                    app:boxStrokeColor="@color/dark"
-                                    app:hintTextColor="@color/dark">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/bottom_packaging_edit"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:imeOptions="actionNext"
-                                        android:inputType="number"
-                                        android:text="@={viewModel.bottom_P_packaging}" />
-                                </com.google.android.material.textfield.TextInputLayout>
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/bottom_packaging_purchase_price_field"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="package purchase price"
-                                    app:endIconMode="clear_text"
-                                    app:boxStrokeColor="@color/dark"
-                                    app:hintTextColor="@color/dark">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/bottom_packaging_purchase_price_edit"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:imeOptions="actionNext"
-                                        android:inputType="numberDecimal"
-                                        android:text="@={viewModel.bottom_packaging_purchase_price}"
-                                        />
-                                </com.google.android.material.textfield.TextInputLayout>
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/bottom_packaging_selling_price_field"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="package selling price"
-                                    app:endIconMode="clear_text"
-                                    app:boxStrokeColor="@color/dark"
-                                    app:hintTextColor="@color/dark">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/bottom_packaging_selling_price_edit"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:imeOptions="actionNext"
-                                        android:inputType="text"
-                                        android:text="@={viewModel.bottom_packaging_selling_price}"
-                                        />
-                                </com.google.android.material.textfield.TextInputLayout>
-                                <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/bottom_item_purchase_price_field"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                     android:layout_width="match_parent"
@@ -367,7 +356,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:imeOptions="actionNext"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:text="@={viewModel.bottom_item_purchase_price}" />
                                 </com.google.android.material.textfield.TextInputLayout>
                                 <com.google.android.material.textfield.TextInputLayout
@@ -385,45 +374,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:imeOptions="actionNext"
-                                        android:inputType="text"
-                                        android:text="@={viewModel.bottom_item_selling_price}" />
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/bottom_quantity_amount_field"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="quantity amount"
-                                    app:endIconMode="clear_text"
-                                    app:boxStrokeColor="@color/dark"
-                                    app:hintTextColor="@color/dark">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/bottom_quantity_amount_edit"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:imeOptions="actionNext"
                                         android:inputType="number"
-                                        android:text="@={viewModel.bottom_available_quantity_amount}" />
-                                </com.google.android.material.textfield.TextInputLayout>
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/bottom_total_package_quantity_field"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="total package quantity"
-                                    app:endIconMode="clear_text"
-                                    app:boxStrokeColor="@color/dark"
-                                    app:hintTextColor="@color/dark">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/bottom_total_package_quantity_edit"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:imeOptions="actionNext"
-                                        android:inputType="text"
-                                        android:text="@={viewModel.bottom_P_total_package_quantity}" />
+                                        android:text="@={viewModel.bottom_item_selling_price}" />
                                 </com.google.android.material.textfield.TextInputLayout>
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/bottom_total_items_quantity_field"
@@ -443,6 +395,26 @@
                                         android:inputType="number"
                                         android:text="@={viewModel.bottom_P_total_items_quantity}" />
                                 </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/bottom_quantity_amount_field"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="amount"
+                                    app:endIconMode="clear_text"
+                                    app:boxStrokeColor="@color/dark"
+                                    app:hintTextColor="@color/dark">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/bottom_quantity_amount_edit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="none"
+                                        android:clickable="false"
+                                        android:focusable="false"                                        android:text="@={viewModel.bottom_purchasing_amount}" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"

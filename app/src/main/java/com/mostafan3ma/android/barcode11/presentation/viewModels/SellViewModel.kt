@@ -27,6 +27,21 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         const val TAG = "SellViewModel"
     }
 
+
+    val receipt_total = MutableLiveData<Double>()
+    fun updateReceiptTotal(){
+        var totalAmount = 0.0
+        _receiptList.value !!.map { invnetory->
+            totalAmount+=invnetory.available_quantity_amount
+        }
+        receipt_total.value = totalAmount
+    }
+
+
+    private val _beep = MutableLiveData<Boolean>()
+    val beep:LiveData<Boolean>get() = _beep
+
+
     private val _detectorOpened = MutableLiveData<Boolean>()
     val detectorOpened: LiveData<Boolean> get() = _detectorOpened
 
@@ -75,6 +90,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         _toastMsg.value = ""
         namesSuggestions.value = null
         _notifyPosition.value = null
+        receipt_total.value = 0.0
 
         viewModelScope.launch {
             repository.get_Inventories().onEach { data_state ->
@@ -136,6 +152,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
             }
             is SellViewModelEvent.UpdateReceiptList -> {
                 updateReceipt(event.input, event.inputType)
+                updateReceiptTotal()
                 setEvent(SellViewModelEvent.HideKeyBoardEvent)
             }
             SellViewModelEvent.HideKeyBoardEvent -> {
@@ -161,10 +178,15 @@ constructor(private val repository: ShopRepository) : ViewModel() {
                     }
                 }
                 setEvent(SellViewModelEvent.NotifyAdapter(event.position))
+                updateReceiptTotal()
             }
             is SellViewModelEvent.NotifyAdapter -> {
                 _notifyPosition.value = event.position
                 _notifyPosition.value = null
+            }
+            SellViewModelEvent.PlayBeep -> {
+                _beep.value = true
+                _beep.value = false
             }
         }
     }
@@ -275,10 +297,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     fun done() {
         val currentDate: String = getCurrentDate()
         val receipt_id: String = generateUniqueId()
-        Log.d(
-            TAG,
-            "done: xxx99 test1 in done before scope :test1${inventories.find { it.product_id == 1 }}"
-        )
+
         if (_receiptList.value!!.isEmpty()) {
             setEvent(SellViewModelEvent.AnnounceToast("the list is empty"))
             return
@@ -321,20 +340,17 @@ constructor(private val repository: ShopRepository) : ViewModel() {
             product_id = inventory.product_id,
             product_name = inventory.product_name,
             product_image = inventory.product_image,
-            packaging_purchase_price = inventory.packaging_purchase_price,
-            packaging_selling_price = inventory.packaging_selling_price,
             item_purchase_price = inventory.item_purchase_price,
             item_selling_price = inventory.item_selling_price,
             barcode = inventory.barcode,
             category = inventory.category,
             description = inventory.description,
-            packaging = inventory.packaging,
             expiration_date = inventory.expiration_date,
             production_date = inventory.production_date,
-            transaction_date = currentDate,
             transaction_quentity = inventory.total_items_quantity,
             transaction_amount = inventory.available_quantity_amount,
             transaction_type = "SELL",
+            transaction_date = currentDate,
             receipt_session = receipt_id
         )
         repository.insert_Transaction(transaction)
@@ -355,6 +371,7 @@ sealed class SellViewModelEvent() {
     data class AnnounceToast(val msg: String = "") : SellViewModelEvent()
     data class UpdateItem(val id: Int,val position:Int, val operation:Operation):SellViewModelEvent()
     data class NotifyAdapter(val position: Int):SellViewModelEvent()
+    object PlayBeep:SellViewModelEvent()
 
 }
 
