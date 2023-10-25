@@ -1,29 +1,36 @@
-# inventory Lite
-#### Video Demo:  <URL HERE>
+# Inventory Lite
+
+#### Video Demo: <URL HERE>
+
 #### Description:
-as a beginning their is main packages to describe in an android app which is (app)
-the other packages is either for managing dependencies and arrange them such as the gradle package or self generated files such as Idea etc..
-starting to describe app package : 
-the app code core is in the src package and it contains three  packages :
-1- main : main code core and the UI layouts
-2- android testing : for applying android testing operations
-3- unit testing : for writing unit testing 
 
-as for now I didn't hav the time to do any testing classes and I want to catch up with the course to submit before it ends this year :
-I will start in the main package which is all the code I wrote >
+As a beginner, there are main packages to describe in an Android app, which is `(app)`. The other packages are either for managing dependencies and arranging them, such as the `Gradle` package, or self-generated files such as `Idea`, etc.
 
-main : 
-contains tow packages : 
-1 - java : logic code written with kotlin 
-2 - res : XML layouts describing the screens layouts that connected to the classes such as activities , fragments and adapters
+Starting to describe the `app` package:
 
- 1-java package: 
-in package com.mostafan3ma.android.barcode11 : 
-their is tow packages :
-1.1 - operations :
-1.2 - presentation : 
-1.3 - InventoryLiteApp.kt class : I am using hilt dagger for dependencies injection and it requires an Application Class to hold all the dagger components and start with it as base class 
-1.4 - MainActivity.kt class : the main screen which will carry different fragment will be pop in and pop out on the mainActivity layout
+The app code core is in the `src` package and it contains three packages:
+
+1. `main`: Main code core and the UI layouts.
+2. `android testing`: For applying Android testing operations.
+3. `unit testing`: For writing unit testing.
+
+As for now, I didn't have the time to do any testing classes, and I want to catch up with the course to submit before it ends this year. I will start in the `main` package, which is all the code I wrote:
+
+### Main:
+
+Contains two packages:
+
+1. `java`: Logic code written with Kotlin.
+2. `res`: XML layouts describing the screens layouts that are connected to the classes such as activities, fragments, and adapters.
+
+#### Java Package:
+
+In package `com.mostafan3ma.android.barcode11`, there are two packages:
+
+1.1. `operations`.
+1.2. `presentation`.
+1.3. `InventoryLiteApp.kt` class: I am using Hilt Dagger for dependency injection, and it requires an Application Class to hold all the Dagger components and start with it as the base class.
+1.4. `MainActivity.kt` class: The main screen which will carry different fragments will pop in and pop out on the `MainActivity` layout.
 
 
 1.1 operations description: 
