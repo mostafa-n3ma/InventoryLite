@@ -4,7 +4,7 @@
 
 #### Description:
 
-As a beginner, there are main packages to describe in an Android app, which is `(app)`. The other packages are either for managing dependencies and arranging them, such as the `Gradle` package, or self-generated files such as `Idea`, etc.
+As a start, there are main packages to describe in an Android app, which is `(app)`. The other packages are either for managing dependencies and arranging them, such as the `Gradle` package, or self-generated files such as `Idea`, etc.
 
 Starting to describe the `app` package:
 
@@ -125,27 +125,27 @@ This section provides an overview of classes that control various screens in the
 - An `ActivityResultLauncher<Array<String>>` named `permissionRequest` is declared for handling permissions requests.
 - The `cameraSource` and `detector` are declared for camera operations and barcode detection.
 - Various functions include:
-  - `onCreateView()`: This is called when creating the main layout view.
-  - `setUpBottomSheet()`: Initializes the bottom sheet and sets it to be non-draggable.
-  - `onDestroy()`: Releases resources when the fragment is destroyed.
-  - `getPermissionsRequest()`: Checks camera permissions.
-  - `checkBarcodeScannerCard()`: Manages the barcode scanner card's animation.
-  - `setUpBarcodeDetector()`: Initiates the surface callback and barcode detector setup.
-  - `setUpCategoriesChips(categoriesList)`: Creates and inflates category chips based on the observed categories list.
-  - `subscribeObservers()`: Observes various ViewModel LiveData and events.
+    - `onCreateView()`: This is called when creating the main layout view.
+    - `setUpBottomSheet()`: Initializes the bottom sheet and sets it to be non-draggable.
+    - `onDestroy()`: Releases resources when the fragment is destroyed.
+    - `getPermissionsRequest()`: Checks camera permissions.
+    - `checkBarcodeScannerCard()`: Manages the barcode scanner card's animation.
+    - `setUpBarcodeDetector()`: Initiates the surface callback and barcode detector setup.
+    - `setUpCategoriesChips(categoriesList)`: Creates and inflates category chips based on the observed categories list.
+    - `subscribeObservers()`: Observes various ViewModel LiveData and events.
 
 ###### PurchaseFragment
 
 - This fragment is similar to `InventoriesFragment` but uses a `ReceiptAdapter`.
 - Functions include:
-  - `onCreateView()`, `setUpBottomSheet()`, `onDestroy()`, `getPermissionsRequest()`, `checkBarcodeScannerCard()`, `setUpBarcodeDetector()`, and `subscribeObservers()` are similar to `InventoriesFragment`.
-  - `subscribeObservers()`: Observes LiveData specific to the purchase process.
+    - `onCreateView()`, `setUpBottomSheet()`, `onDestroy()`, `getPermissionsRequest()`, `checkBarcodeScannerCard()`, `setUpBarcodeDetector()`, and `subscribeObservers()` are similar to `InventoriesFragment`.
+    - `subscribeObservers()`: Observes LiveData specific to the purchase process.
 
 ###### SellFragment
 
 - Similar to `PurchaseFragment` but with differences in ViewModel interaction through click events declared in the fragment layout.
 - Functions include:
-  - `subscribeObservers()`: Observes LiveData and events, including the `receiptList`, `quantitiesList`, `salesList`, `expiryList`, `sellReceiptsList`, and `purchaseReceiptsList`.
+    - `subscribeObservers()`: Observes LiveData and events, including the `receiptList`, `quantitiesList`, `salesList`, `expiryList`, `sellReceiptsList`, and `purchaseReceiptsList`.
 
 ##### 1.2.3: ViewModels
 
