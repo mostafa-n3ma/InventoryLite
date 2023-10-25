@@ -33,47 +33,50 @@ In package `com.mostafan3ma.android.barcode11`, there are two packages:
 1.4. `MainActivity.kt` class: The main screen which will carry different fragments will pop in and pop out on the `MainActivity` layout.
 
 
-1.1 operations description: 
-contains the following :-
-                        1.1.1 - data_Entities : which includes all the the entities that the app deals with I separate the entities types for Local& Remote % Domain 
-                                Local for saving them into database 
-                                Remote : fro sending and retrieving them from a remote server ( I didn't implement that yet but planning to do so after submitting the project )
-                                Domain : the entity that will be handled by screens and viewModels basely the any logic don't deal with database directly
-                                the reason I did that is for in case something wrong happened in one of the dataSources it will not effect the UI data 
-                                and I also provided a mapper Class to map from and into the entities
-                        1.1.2 - data_Management : which contains the logic for the local and remote data sources and also a repository class to manage both data sources in one place 
-                                sub files are :
-                               - data_Management.LocalDataSource.RoomDatabase : which contains the shopDao and shopDatabase to generate and database instance and provide controlling function to manage that database
-                                 RoomDataBase is really helpful library 
-                                 I only need to provide the database name and the required context and the cacheEntities I want to create tables of and it just do the rest
-                                 and in the Dao it's an interface annotated with @DAO annotation add  the function with no body's that  I want to operate  on my database some queries and SQLITE commands  
-                               - data_Management.LocalDataSource.DefaultLocalDataSource : an interface for the default localDataBase class I made this just to clear the function first that I want to use on the data Source 
-                                 then I can extend this interface to the real class of the LocalDataSource 
-                                 the reason I did that is for testing reasons so I can create demo dataSource and injected it to the repository later and test the repository ANd since the database cant be 
-                                 tested without android classes and libraries so I plan to do fake DataSource that will implement the same DefaultLocalDataSource interface
-                               - data_Management.localDatabaseSource.LocalDatabaseSource  the real DataSource that will deal with the database and handle the entities transformation form and into the database
-                               - data_Management.repository.DefaultShopRepository : Interface of the repository again for testing reasons so I can make fake repository and inject it where I need
-                               - operations.data_Management.repository.ShopRepository: one place that controls the operations of both the local and remote sources complaining functions from all different dataSources
-                                  also I am injecting the localDataSource and mapper Classes to it
-                        1.1.3 - di : contains the dagger modules that will be injected in many places 
-                                     here I have two modules for the repository and for the database 
-                                     this helps the dagger to know how to provide complicated classes instances for injection
-                        1.1.4 - utils : all kind of classes and methods that would help me get some quick results and shorten the code for me in any class I need it 
-                                        - BindingAdapters : contains all the binding adapters that  used to bind views in tow way dataBinding and also to get the image from internal storage and display it in a ImageView 
-                                        - DataState : simple Sealed Class helps me to detect result data states such as error , success , Loading a quick way to handle different results when fetching data 
-                                        - HideKeyBoard : extended method to use in fragments or activities useful for hiding the keyBoard quickly
-                                        - Mapper : mapper interface to be extended in all mappers classes 
-                                        - beep : contains the class BeepPlayer to play the beep sound when detecting barcode results on the camera surface
-                                        - permissionChecker : just an extended function to check permissions and get their result in a fragment using the new
-                                          registering way and result Launcher instead of the old onRequestPermissionsResult fun that is deprecated
-                                        - simpleUtils : contains simple function to get the currentDate and getting unique receipt_id
-                                        - SuperImageController : A simple class I wrote previously to deal with images
-                                          Its functions are:
-                                                        - Display the photo selection window from the gallery
-                                                        - Give the resulting image that was returned with the selection window closed
-                                                        - Save images to the device’s internal storage and within the program files to save them locally and save them under a specific name
-                                                        - Retrieve images with a specific name from the internal storage
-                                                        - Delete an image with a specific name from the internal storage
+#### 1.1 Operations Description:
+
+**1.1.1 data_Entities:** This section includes all the entities that the app deals with. Entities are separated into three types: Local, Remote, and Domain.
+
+- Local: For saving entities into the database.
+- Remote: For sending and retrieving entities from a remote server (not implemented yet).
+- Domain: Entities that will be handled by screens and viewModels, so any logic doesn't deal with the database directly. A mapper class is provided to map to and from the entities.
+
+**1.1.2 data_Management:** This section contains the logic for the local and remote data sources and a repository class to manage both data sources in one place.
+
+Subsections:
+
+- `data_Management.LocalDataSource.RoomDatabase`: Contains the `shopDao` and `shopDatabase` to generate and manage the database instance using RoomDatabase. RoomDatabase simplifies database management by only requiring the database name, context, and entity classes.
+
+- `data_Management.LocalDataSource.DefaultLocalDataSource`: An interface for the default local database class. This interface is used to define the functions to be implemented in the real local data source. It facilitates testing by allowing the creation of a demo data source that implements the same interface.
+
+- `data_Management.localDatabaseSource.LocalDatabaseSource`: The real data source that deals with the database and handles entity transformations between the database.
+
+- `data_Management.repository.DefaultShopRepository`: An interface for the repository, designed for testing purposes. This allows the creation of a fake repository for testing and injecting it where needed.
+
+- `operations.data_Management.repository.ShopRepository`: A single place that controls operations for both local and remote sources, including functions from different data sources. The local data source and mapper classes are injected into it.
+
+**1.1.3 di:** Contains Dagger modules that will be injected into various places. There are two modules for the repository and the database. These modules help Dagger provide instances of complex classes for injection.
+
+**1.1.4 utils:** Contains various classes and methods that aid in code development and reduce code duplication.
+
+Subsections:
+
+- `BindingAdapters`: Contains all binding adapters used for two-way data binding and to load images from internal storage and display them in an ImageView.
+
+- `DataState`: A simple sealed class that helps detect data result states, such as error, success, and loading. It provides a quick way to handle different results when fetching data.
+
+- `HideKeyBoard`: An extended method for use in fragments or activities to quickly hide the keyboard.
+
+- `Mapper`: An interface to be extended in all mapper classes.
+
+- `beep`: Contains the `BeepPlayer` class, which plays a beep sound when detecting barcode results on the camera surface.
+
+- `permissionChecker`: An extended function to check permissions and get their results in a fragment using the new registering method and result Launcher, replacing the deprecated `onRequestPermissionsResult`.
+
+- `simpleUtils`: Contains simple functions to get the current date and obtain a unique receipt ID.
+
+- `SuperImageController`: A class to manage images with functions for displaying images from the gallery, saving images to internal storage, retrieving images by name, and deleting images by name.
+
 
 1.2 presentation description : 
 contains as follows:- 
