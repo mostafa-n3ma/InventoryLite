@@ -35,13 +35,13 @@ In package `com.mostafan3ma.android.barcode11`, there are two packages:
 
 #### 1.1 Operations Description:
 
-**1.1.1 data_Entities:** This section includes all the entities that the app deals with. Entities are separated into three types: Local, Remote, and Domain.
+##### **1.1.1 data_Entities:** This section includes all the entities that the app deals with. Entities are separated into three types: Local, Remote, and Domain.
 
 - Local: For saving entities into the database.
 - Remote: For sending and retrieving entities from a remote server (not implemented yet).
 - Domain: Entities that will be handled by screens and viewModels, so any logic doesn't deal with the database directly. A mapper class is provided to map to and from the entities.
 
-**1.1.2 data_Management:** This section contains the logic for the local and remote data sources and a repository class to manage both data sources in one place.
+##### **1.1.2 data_Management:** This section contains the logic for the local and remote data sources and a repository class to manage both data sources in one place.
 
 Subsections:
 
@@ -55,9 +55,9 @@ Subsections:
 
 - `operations.data_Management.repository.ShopRepository`: A single place that controls operations for both local and remote sources, including functions from different data sources. The local data source and mapper classes are injected into it.
 
-**1.1.3 di:** Contains Dagger modules that will be injected into various places. There are two modules for the repository and the database. These modules help Dagger provide instances of complex classes for injection.
+##### **1.1.3 di:** Contains Dagger modules that will be injected into various places. There are two modules for the repository and the database. These modules help Dagger provide instances of complex classes for injection.
 
-**1.1.4 utils:** Contains various classes and methods that aid in code development and reduce code duplication.
+##### **1.1.4 utils:** Contains various classes and methods that aid in code development and reduce code duplication.
 
 Subsections:
 
