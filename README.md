@@ -3,7 +3,7 @@
 #### Video Demo: <URL HERE>
 
 #### Description:
-
+used principles :MVVM architecture pattern ,DI Dependencies Injection,Kotlin Coroutines ,DataBinding, ViewBinding,RoomDatabase,BindingAdapters,ExtensionFunctions
 As a start, there are main packages to describe in an Android app, which is `(app)`. The other packages are either for managing dependencies and arranging them, such as the `Gradle` package, or self-generated files such as `Idea`, etc.
 
 Starting to describe the `app` package:
