@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.databinding.ListItemReceiptScreenBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
 
 class ReceiptAdapter(private val listener: ReceiptListener) :
     ListAdapter<Domain_Inventory,ReceiptViewHolder>(ReceiptDiffCallBack()) {

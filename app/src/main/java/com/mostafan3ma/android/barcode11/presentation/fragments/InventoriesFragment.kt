@@ -34,7 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentInventoriesBinding
-import com.mostafan3ma.android.barcode11.oporations.utils.*
+import com.mostafan3ma.android.barcode11.operations.utils.*
 import com.mostafan3ma.android.barcode11.presentation.adapters.InventoriesAdapter
 import com.mostafan3ma.android.barcode11.presentation.adapters.InventoriesListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.*
@@ -142,6 +142,8 @@ class InventoriesFragment
             }
         }
 
+
+
     private fun checkBarcodeScannerCard() {
         if (binding.hiddenBarcodeCard.visibility == View.GONE) {
             TransitionManager.beginDelayedTransition(binding.mainCard, AutoTransition())
@@ -220,8 +222,6 @@ class InventoriesFragment
                 }
             }
         }
-
-
 
 
 

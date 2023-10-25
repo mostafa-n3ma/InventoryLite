@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.databinding.ListItemReciptsBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Transaction
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Transaction
 import java.lang.StringBuilder
 
 class Analytics_Adapter_R : ListAdapter<ReceiptItem,ReceiptsViewHolder>(ReceiptItemsViewHolder()){

@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory" />
+            type="com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

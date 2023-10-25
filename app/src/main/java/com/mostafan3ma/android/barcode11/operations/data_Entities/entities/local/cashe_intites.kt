@@ -1,4 +1,4 @@
-package com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local
+package com.mostafan3ma.android.barcode11.operations.data_Entities.entities.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

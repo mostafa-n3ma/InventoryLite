@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.mostafan3ma.android.barcode11.databinding.FragmentAnalyticsBinding
-import com.mostafan3ma.android.barcode11.oporations.utils.SuperImageController
+import com.mostafan3ma.android.barcode11.operations.utils.SuperImageController
 import com.mostafan3ma.android.barcode11.presentation.adapters.AnalyticsAdapter_E
 import com.mostafan3ma.android.barcode11.presentation.adapters.AnalyticsAdapter_Q
 import com.mostafan3ma.android.barcode11.presentation.adapters.AnalyticsAdapter_S

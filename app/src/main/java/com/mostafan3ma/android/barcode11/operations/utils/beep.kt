@@ -1,4 +1,4 @@
-package com.mostafan3ma.android.barcode11.oporations.utils
+package com.mostafan3ma.android.barcode11.operations.utils
 
 import android.media.MediaPlayer
 import com.mostafan3ma.android.barcode11.R

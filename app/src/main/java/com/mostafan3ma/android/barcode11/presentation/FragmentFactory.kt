@@ -2,8 +2,8 @@ package com.mostafan3ma.android.barcode11.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.mostafan3ma.android.barcode11.oporations.data_Mangment.repository.ShopRepository
-import com.mostafan3ma.android.barcode11.oporations.utils.SuperImageController
+import com.mostafan3ma.android.barcode11.operations.data_Management.repository.ShopRepository
+import com.mostafan3ma.android.barcode11.operations.utils.SuperImageController
 import com.mostafan3ma.android.barcode11.presentation.fragments.*
 import javax.inject.Inject
 

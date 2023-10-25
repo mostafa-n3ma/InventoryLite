@@ -29,18 +29,17 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentPurchaseBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
-import com.mostafan3ma.android.barcode11.oporations.utils.BeepPlayer
-import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
-import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
-import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.utils.BeepPlayer
+import com.mostafan3ma.android.barcode11.operations.utils.hideKeyboard
+import com.mostafan3ma.android.barcode11.operations.utils.isAllPermissionsGranted
+import com.mostafan3ma.android.barcode11.operations.utils.requestPermissions
 import com.mostafan3ma.android.barcode11.presentation.adapters.Operation
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptAdapter
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Detector_status
 import com.mostafan3ma.android.barcode11.presentation.viewModels.PurchaseViewModel
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Search_type
-import com.mostafan3ma.android.barcode11.presentation.viewModels.SellViewModelEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

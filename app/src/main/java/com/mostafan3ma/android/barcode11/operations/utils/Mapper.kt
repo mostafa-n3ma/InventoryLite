@@ -1,4 +1,4 @@
-package com.mostafan3ma.android.barcode11.oporations.utils
+package com.mostafan3ma.android.barcode11.operations.utils
 
 interface Mapper<Entity, Domain> {
     fun mapToEntity(domain: Domain): Entity

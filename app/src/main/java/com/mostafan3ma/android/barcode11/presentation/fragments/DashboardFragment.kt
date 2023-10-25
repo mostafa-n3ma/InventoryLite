@@ -33,6 +33,7 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
+
     private fun subscribeObservers() {
         viewModel.clickInventoryCard.observe(viewLifecycleOwner, Observer { inventoryClicked->
             if (inventoryClicked){

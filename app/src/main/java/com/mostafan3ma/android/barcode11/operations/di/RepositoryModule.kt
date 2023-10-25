@@ -1,9 +1,9 @@
-package com.mostafan3ma.android.barcode11.oporations.di
+package com.mostafan3ma.android.barcode11.operations.di
 
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.InventoryMapper
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.TransactionMapper
-import com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource.LocalDataSource
-import com.mostafan3ma.android.barcode11.oporations.data_Mangment.repository.ShopRepository
+import com.mostafan3ma.android.barcode11.operations.data_Entities.entities.local.InventoryMapper
+import com.mostafan3ma.android.barcode11.operations.data_Entities.entities.local.TransactionMapper
+import com.mostafan3ma.android.barcode11.operations.data_Management.localDatabaseSource.LocalDataSource
+import com.mostafan3ma.android.barcode11.operations.data_Management.repository.ShopRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

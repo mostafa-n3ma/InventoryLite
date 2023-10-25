@@ -1,10 +1,8 @@
-package com.mostafan3ma.android.barcode11.oporations.data_Mangment.repository
+package com.mostafan3ma.android.barcode11.operations.data_Management.repository
 
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Transaction
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.Cache_inventory
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.Cache_transaction
-import com.mostafan3ma.android.barcode11.oporations.utils.DataState
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Transaction
+import com.mostafan3ma.android.barcode11.operations.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface DefaultShopRepository {

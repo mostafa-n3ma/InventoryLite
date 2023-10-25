@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.ListItemAnalyticsExpiryBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -19,7 +19,6 @@ class AnalyticsAdapter_E (private val context: Context) :ListAdapter<Domain_Inve
 
     override fun onBindViewHolder(holder: ExpiresViewHolder, position: Int) {
         val item = getItem(position)
-//        holder.itemView.context
         holder.bind(item,context)
     }
 }

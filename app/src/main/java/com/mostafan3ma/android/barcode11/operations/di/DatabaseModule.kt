@@ -1,10 +1,10 @@
-package com.mostafan3ma.android.barcode11.oporations.di
+package com.mostafan3ma.android.barcode11.operations.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource.InventoryDao
-import com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource.ShopDatabase
-import com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource.TransactionDao
+import com.mostafan3ma.android.barcode11.operations.data_Management.localDatabaseSource.InventoryDao
+import com.mostafan3ma.android.barcode11.operations.data_Management.localDatabaseSource.ShopDatabase
+import com.mostafan3ma.android.barcode11.operations.data_Management.localDatabaseSource.TransactionDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

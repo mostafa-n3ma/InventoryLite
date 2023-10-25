@@ -1,4 +1,4 @@
-package com.mostafan3ma.android.barcode11.oporations.data_Entities
+package com.mostafan3ma.android.barcode11.operations.data_Entities
 
 data class Domain_Inventory(
     var product_id: Int = 0,

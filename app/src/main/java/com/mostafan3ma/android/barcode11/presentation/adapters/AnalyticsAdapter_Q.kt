@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.ListItemAnalyticsQuantitiesBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
 
 class AnalyticsAdapter_Q (private val context:Context):ListAdapter<Domain_Inventory,QuantitiesViewHolder>(AnalyticsDiffCallBack_Q()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuantitiesViewHolder {

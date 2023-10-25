@@ -28,11 +28,11 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentSellBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
-import com.mostafan3ma.android.barcode11.oporations.utils.BeepPlayer
-import com.mostafan3ma.android.barcode11.oporations.utils.hideKeyboard
-import com.mostafan3ma.android.barcode11.oporations.utils.isAllPermissionsGranted
-import com.mostafan3ma.android.barcode11.oporations.utils.requestPermissions
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.utils.BeepPlayer
+import com.mostafan3ma.android.barcode11.operations.utils.hideKeyboard
+import com.mostafan3ma.android.barcode11.operations.utils.isAllPermissionsGranted
+import com.mostafan3ma.android.barcode11.operations.utils.requestPermissions
 import com.mostafan3ma.android.barcode11.presentation.adapters.Operation
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptAdapter
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptListener

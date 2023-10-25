@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.databinding.ListItemInventoryBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Inventory
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
 
 class InventoriesAdapter (private val listener:InventoriesListener,private val longListener: InventoriesListener):ListAdapter<Domain_Inventory,InventoriesViewHolder>(InventoriesDiffCallBack()) {
 

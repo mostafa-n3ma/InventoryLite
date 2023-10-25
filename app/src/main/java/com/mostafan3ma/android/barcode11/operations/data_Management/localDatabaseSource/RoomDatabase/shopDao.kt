@@ -1,8 +1,8 @@
-package com.mostafan3ma.android.barcode11.oporations.data_Mangment.localDatabaseSource
+package com.mostafan3ma.android.barcode11.operations.data_Management.localDatabaseSource
 
 import androidx.room.*
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.Cache_transaction
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.entities.local.Cache_inventory
+import com.mostafan3ma.android.barcode11.operations.data_Entities.entities.local.Cache_transaction
+import com.mostafan3ma.android.barcode11.operations.data_Entities.entities.local.Cache_inventory
 
 @Dao
 interface InventoryDao {

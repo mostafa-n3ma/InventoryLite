@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.ListItemAnalyticsSalesBinding
-import com.mostafan3ma.android.barcode11.oporations.data_Entities.Domain_Transaction
+import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Transaction
 
 class AnalyticsAdapter_S (private val context: Context) :ListAdapter<Domain_Transaction,SalesViewHolder>(AnalyticsDiffCallBack_S()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalesViewHolder {
