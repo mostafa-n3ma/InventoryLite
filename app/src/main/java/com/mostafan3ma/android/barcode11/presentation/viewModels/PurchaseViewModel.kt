@@ -1,5 +1,6 @@
 package com.mostafan3ma.android.barcode11.presentation.viewModels
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.*
 import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
@@ -25,6 +26,16 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     companion object {
         const val TAG = "PurchaseViewModel"
     }
+
+    private val _saveNewImg = MutableLiveData<String?>()
+    val saveNewImg: LiveData<String?> get() = _saveNewImg
+
+    private val _returnedBottomImgUri = MutableLiveData<Uri?>()
+    val returnedBottomImgUri: LiveData<Uri?> get() = _returnedBottomImgUri
+
+    private val _openImgChooser = MutableLiveData<Boolean>()
+    val openImgChooser: LiveData<Boolean> get() = _openImgChooser
+
 
     val receipt_total = MutableLiveData<Double>()
     fun updateReceiptTotal() {
@@ -143,6 +154,9 @@ constructor(private val repository: ShopRepository) : ViewModel() {
         _clickDoneBtn.value = false
         receipt_total.value = 0.0
         _notifyPosition.value = null
+        _returnedBottomImgUri.value = null
+        _openImgChooser.value = false
+        _saveNewImg.value = null
 
 
 
@@ -261,9 +275,17 @@ constructor(private val repository: ShopRepository) : ViewModel() {
                     emptyBottomFields()
                     _bottomSheetStatus.value = false
                 }
+                _returnedBottomImgUri.value = null
+                _saveNewImg.value = null
 //                setEvent(PurchaseViewModelEvent.SetBarcodeDetectorStatus(Detector_status.Receive))
             }
             PurchaseViewModelEvent.ClickBottomSheetAddBtn -> {
+                if (returnedBottomImgUri.value !=null){
+                    setEvent(PurchaseViewModelEvent.SaveNewImg(bottom_P_name.value!! + "_" + bottom_P_id.value))
+                    bottom_P_img.value = bottom_P_name.value!! + "_" + bottom_P_id.value
+                    _returnedBottomImgUri.value = null
+                }
+
 //                * Check if some fields are empty or unveiled
 //                * create Product object by the fields data
                 val addedProduct: Domain_Inventory = calculateProductInfoFromBottomFields()
@@ -325,9 +347,22 @@ constructor(private val repository: ShopRepository) : ViewModel() {
                 _notifyPosition.value = event.position
                 _notifyPosition.value = null
             }
+            is PurchaseViewModelEvent.GetReturnedImgUri -> {
+                _returnedBottomImgUri.value = event.uri
+            }
+            PurchaseViewModelEvent.OpenImgChooser -> {
+                _openImgChooser.value = true
+                _openImgChooser.value = false
+            }
+            is PurchaseViewModelEvent.SaveNewImg -> {
+                _saveNewImg.value = event.product_img
+            }
         }
     }
 
+    fun openImageChooser(){
+        setEvent(PurchaseViewModelEvent.OpenImgChooser)
+    }
 
     fun clickBottomAddBtn() {
         setEvent(PurchaseViewModelEvent.ClickBottomSheetAddBtn)
@@ -498,6 +533,10 @@ constructor(private val repository: ShopRepository) : ViewModel() {
             PurchaseViewModelEvent()
 
         data class NotifyAdapter(val position: Int) : PurchaseViewModelEvent()
+
+        object OpenImgChooser : PurchaseViewModelEvent()
+        data class GetReturnedImgUri(val uri: Uri? = null) : PurchaseViewModelEvent()
+        data class SaveNewImg(val product_img: String) : PurchaseViewModelEvent()
 
     }
 }

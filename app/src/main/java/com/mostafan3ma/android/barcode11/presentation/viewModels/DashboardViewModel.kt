@@ -77,7 +77,6 @@ companion object{
         soldOutProduct.value = "all products are available"
         updateSoldOutProduct()
         updateTodaySales()
-
     }
 
     private fun updateSoldOutProduct() {

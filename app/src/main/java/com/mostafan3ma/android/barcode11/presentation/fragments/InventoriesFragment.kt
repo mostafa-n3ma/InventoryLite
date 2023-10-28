@@ -350,7 +350,6 @@ class InventoriesFragment
                 lifecycleScope.launch {
                     superImageController.saveImageToInternalStorage(requireContext(),imgBitmap,product_img)
                 }
-
             }
         })
         viewModel.beep.observe(viewLifecycleOwner, Observer { beep->

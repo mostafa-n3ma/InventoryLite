@@ -72,6 +72,7 @@ constructor(private val repository: ShopRepository) : ViewModel() {
     
 
     init {
+
         _backBtnClicked.value = false
         _quantitiesCardClicked.value = false
         _salesCardClicked.value = false

@@ -30,21 +30,23 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mostafan3ma.android.barcode11.R
 import com.mostafan3ma.android.barcode11.databinding.FragmentPurchaseBinding
 import com.mostafan3ma.android.barcode11.operations.data_Entities.Domain_Inventory
-import com.mostafan3ma.android.barcode11.operations.utils.BeepPlayer
-import com.mostafan3ma.android.barcode11.operations.utils.hideKeyboard
-import com.mostafan3ma.android.barcode11.operations.utils.isAllPermissionsGranted
-import com.mostafan3ma.android.barcode11.operations.utils.requestPermissions
+import com.mostafan3ma.android.barcode11.operations.utils.*
 import com.mostafan3ma.android.barcode11.presentation.adapters.Operation
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptAdapter
 import com.mostafan3ma.android.barcode11.presentation.adapters.ReceiptListener
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Detector_status
+import com.mostafan3ma.android.barcode11.presentation.viewModels.InventoriesEvents
 import com.mostafan3ma.android.barcode11.presentation.viewModels.PurchaseViewModel
 import com.mostafan3ma.android.barcode11.presentation.viewModels.Search_type
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class PurchaseFragment : Fragment() {
+class PurchaseFragment
+@Inject
+    constructor(private val superImageController: SuperImageController)
+    : Fragment() {
 
 
     private lateinit var binding: FragmentPurchaseBinding
@@ -87,6 +89,7 @@ class PurchaseFragment : Fragment() {
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.adapter = productsAdapter
         addProductBottomSheetBehavior = setUpBottomSheet()
+        superImageController.register(this)
 
         peepPlayer = BeepPlayer(requireContext())
 
@@ -96,6 +99,14 @@ class PurchaseFragment : Fragment() {
 
 
         return binding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        if (superImageController.returnedUri !=null){
+            viewModel.setEvent(PurchaseViewModel.PurchaseViewModelEvent.GetReturnedImgUri(superImageController.returnedUri))
+        }
     }
 
     override fun onDestroy() {
@@ -227,6 +238,31 @@ class PurchaseFragment : Fragment() {
                 val purchasePrice = viewModel.bottom_item_purchase_price.value!!.toDouble()
                 viewModel.bottom_purchasing_amount.postValue((quantity*purchasePrice).toString())
             }
+        })
+
+        viewModel.returnedBottomImgUri.observe(viewLifecycleOwner, Observer { returnedUri->
+            if (returnedUri !=null){
+                binding.bottomAddImgBtn.setImageURI(returnedUri)
+            }else{
+                binding.bottomAddImgBtn.setImageDrawable(resources.getDrawable(R.drawable.add_image))
+            }
+        })
+
+        viewModel.openImgChooser.observe(viewLifecycleOwner,Observer{requested->
+            if (requested){
+                superImageController.launchRegistrar()
+            }
+        })
+
+        viewModel.saveNewImg.observe(viewLifecycleOwner, Observer { product_img->
+            if (product_img !=null){
+                val imgBitmap = superImageController.getBitmapFromRegister(requireContext())
+                lifecycleScope.launch {
+                    superImageController.saveImageToInternalStorage(requireContext(),imgBitmap,product_img)
+                }
+
+            }
+
         })
 
     }

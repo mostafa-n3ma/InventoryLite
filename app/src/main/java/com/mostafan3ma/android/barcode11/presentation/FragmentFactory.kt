@@ -21,7 +21,7 @@ constructor(
                 DashboardFragment()
             }
             PurchaseFragment::class.java.name->{
-                PurchaseFragment()
+                PurchaseFragment(supperImageController)
             }
             SellFragment::class.java.name->{
                 SellFragment()
