@@ -1,6 +1,6 @@
 # Inventory Lite
 
-#### Video Demo: <URL HERE>
+#### Video Demo: <https://youtu.be/j8Nf5t_UC0w>
 
 #### Description:
 
