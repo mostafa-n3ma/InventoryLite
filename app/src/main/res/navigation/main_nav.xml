@@ -12,16 +12,33 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_purchaseFragment"
-            app:destination="@id/purchaseFragment" />
+            app:destination="@id/purchaseFragment"
+            app:enterAnim="@anim/slid_in_from_right"
+            app:exitAnim="@anim/slid_out_to_left"
+            app:popEnterAnim="@anim/slid_in_from_left"
+            app:popExitAnim="@anim/slid_out_to_right"
+            app:popUpTo="@id/dashboardFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_sellFragment"
-            app:destination="@id/sellFragment" />
+            app:destination="@id/sellFragment"
+            app:enterAnim="@anim/slid_in_from_right"
+            app:exitAnim="@anim/slid_out_to_left"
+            app:popEnterAnim="@anim/slid_in_from_left"
+            app:popExitAnim="@anim/slid_out_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_inventoriesFragment"
-            app:destination="@id/inventoriesFragment" />
+            app:destination="@id/inventoriesFragment"
+            app:enterAnim="@anim/slid_in_from_right"
+            app:exitAnim="@anim/slid_out_to_left"
+            app:popEnterAnim="@anim/slid_in_from_left"
+            app:popExitAnim="@anim/slid_out_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_analyticsFragment"
-            app:destination="@id/analyticsFragment" />
+            app:destination="@id/analyticsFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out"
+            app:popEnterAnim="@anim/fad_in"
+            app:popExitAnim="@anim/fad_out" />
     </fragment>
     <fragment
         android:id="@+id/purchaseFragment"
@@ -35,6 +52,8 @@
         <action
             android:id="@+id/action_sellFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slid_in_from_left"
+            app:exitAnim="@anim/slid_out_to_right"
             app:popUpTo="@id/dashboardFragment" />
     </fragment>
     <fragment
@@ -43,7 +62,9 @@
         android:label="InventoriesFragment" >
         <action
             android:id="@+id/action_inventoriesFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slid_in_from_left"
+            app:exitAnim="@anim/slid_out_to_right" />
     </fragment>
     <fragment
         android:id="@+id/analyticsFragment"
@@ -51,6 +72,8 @@
         android:label="AnalyticsFragment" >
         <action
             android:id="@+id/action_analyticsFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/fad_in"
+            app:exitAnim="@anim/fad_out" />
     </fragment>
 </navigation>
